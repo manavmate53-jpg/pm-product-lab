@@ -1,0 +1,64 @@
+{
+  "scenarios": [
+    {
+      "id": "scenario-a",
+      "name": "Scenario A: Clean Enterprise Merchant (Auto-Approve)",
+      "badge": "Auto-Approve (>85 Score)",
+      "badgeClass": "text-emerald-400 bg-emerald-950/80 border-emerald-800",
+      "gstin": "27AABCU9603R1ZM",
+      "pan": "AABCU9603R",
+      "gstName": "Apex Industrial Logistics Pvt Ltd",
+      "bankName": "Apex Industrial Logistics Pvt Ltd",
+      "state": "Maharashtra (27)",
+      "annualTurnover": "₹4.85 Cr",
+      "docMetadata": {
+        "producer": "Adobe Acrobat Pro (Clean)",
+        "digitalSignature": "Valid Class 3 DSC",
+        "tamperingDetected": false
+      },
+      "expectedScore": 96,
+      "decision": "AUTO_APPROVE",
+      "summary": "Full cryptographic checksum match, exact entity string equivalence, and valid Class 3 digital signature."
+    },
+    {
+      "id": "scenario-b",
+      "name": "Scenario B: Fuzzy Name Mismatch (Manual Review)",
+      "badge": "Manual Review (60-85 Score)",
+      "badgeClass": "text-amber-400 bg-amber-950/80 border-amber-800",
+      "gstin": "27AAFCN1234F1Z5",
+      "pan": "AAFCN1234F",
+      "gstName": "Neo Manpower Services",
+      "bankName": "NeoManpower Ops LLP",
+      "state": "Maharashtra (27)",
+      "annualTurnover": "₹1.42 Cr",
+      "docMetadata": {
+        "producer": "HP ScanJet Direct",
+        "digitalSignature": "Not present (Physical Scan)",
+        "tamperingDetected": false
+      },
+      "expectedScore": 74,
+      "decision": "MANUAL_REVIEW",
+      "summary": "Valid GSTIN/PAN cross-match, but entity name on GST differs from Bank statement. Routed to ops team for 1-click override."
+    },
+    {
+      "id": "scenario-c",
+      "name": "Scenario C: High-Risk / Tampered Document (Auto-Reject)",
+      "badge": "Auto-Reject (<60 Score)",
+      "badgeClass": "text-rose-400 bg-rose-950/80 border-rose-800",
+      "gstin": "27AABCU9999R9X0",
+      "pan": "BXYPA1234K",
+      "gstName": "Global Shadow Enterprises",
+      "bankName": "Quick Payouts Corp",
+      "state": "Maharashtra (27)",
+      "annualTurnover": "Unverified",
+      "docMetadata": {
+        "producer": "PDF-XChange Editor v7.0 (Modified)",
+        "digitalSignature": "Invalid or Tampered Hash",
+        "tamperingDetected": true
+      },
+      "expectedScore": 28,
+      "decision": "AUTO_REJECT",
+      "summary": "GSTIN internal PAN does not match submitted PAN. PDF metadata reveals modified creation dates and missing checksum."
+    }
+  ]
+}

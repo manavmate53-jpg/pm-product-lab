@@ -360,22 +360,453 @@
 
       <!-- Container: Live Product View -->
       <div id="verishield-live-view" class="space-y-6">
-        <!-- Will be populated in Prompt 2 -->
-        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-12 text-center text-slate-400">
-          <i data-lucide="shield-check" class="w-12 h-12 text-emerald-500 mx-auto mb-3 opacity-60"></i>
-          <h3 class="text-base font-bold text-white mb-1">VeriShield Workspace Initialized</h3>
-          <p class="text-xs max-w-md mx-auto">Interactive validator, GSTIN regex engine, OCR inspector, and ops decision queue ready for Product 1 build.</p>
+        
+        <!-- 1-Click Sample Merchant Selector -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+              <span class="text-xs font-bold text-white uppercase tracking-wider">1-Click Sample Merchant Selector</span>
+            </div>
+            <span class="text-[11px] text-slate-400">Select a preset or edit fields below to test live regex and scoring</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <!-- Preset A -->
+            <button id="btn-scenario-a" onclick="selectScenario('scenario-a')" class="text-left p-3 rounded-lg border border-blue-500 bg-blue-950/60 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-white group-hover:text-blue-400 transition-colors">Scenario A</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">Auto-Approve</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Clean Enterprise Merchant</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">27AABCU9603R1ZM &middot; Exact Match</div>
+            </button>
+
+            <!-- Preset B -->
+            <button id="btn-scenario-b" onclick="selectScenario('scenario-b')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-amber-400 transition-colors">Scenario B</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-amber-950 text-amber-400 border border-amber-800">Manual Review</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Fuzzy Name Mismatch</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">Services vs Ops LLP (81% match)</div>
+            </button>
+
+            <!-- Preset C -->
+            <button id="btn-scenario-c" onclick="selectScenario('scenario-c')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-rose-400 transition-colors">Scenario C</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800">Auto-Reject</span>
+              </div>
+              <p class="text-[11px] text-slate-300">High-Risk / Tampered Doc</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">PAN Discrepancy &amp; Checksum Fail</div>
+            </button>
+          </div>
         </div>
+
+        <!-- Main Workspace Grid: Document Inputs & Pipeline Output -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- Left Column (5 cols): Document OCR & Manual Inputs -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+                  <h3 class="text-sm font-bold text-white">Merchant Extraction Input</h3>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Live Regex Active</span>
+              </div>
+
+              <!-- GST Certificate Extraction Block -->
+              <div class="space-y-3 p-3.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
+                <div class="flex items-center justify-between">
+                  <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">1. GSTIN (15 Characters)</label>
+                  <span id="pill-gstin-status" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800">
+                    VALID 15-CHAR GSTIN
+                  </span>
+                </div>
+                <input id="vs-gstin" type="text" maxlength="15" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-blue-500 uppercase transition-colors" placeholder="e.g. 27AABCU9603R1ZM">
+
+                <div>
+                  <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Legal Entity Name (on GST)</label>
+                  <input id="vs-gst-name" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-sans text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="e.g. Apex Industrial Logistics Pvt Ltd">
+                </div>
+              </div>
+
+              <!-- Bank Statement Extraction Block -->
+              <div class="space-y-3 p-3.5 rounded-lg bg-slate-950/70 border border-slate-800/80">
+                <div class="flex items-center justify-between">
+                  <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">2. PAN (10 Characters)</label>
+                  <div class="flex gap-1.5">
+                    <span id="pill-pan-status" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800">VALID PAN</span>
+                    <span id="pill-cross-match" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800">PAN-GSTIN MATCH</span>
+                  </div>
+                </div>
+                <input id="vs-pan" type="text" maxlength="10" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-blue-500 uppercase transition-colors" placeholder="e.g. AABCU9603R">
+
+                <div>
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider">Account Holder Name (Bank)</label>
+                    <span id="pill-similarity" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800">100% ENTITY MATCH</span>
+                  </div>
+                  <input id="vs-bank-name" type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs font-sans text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="e.g. Apex Industrial Logistics Pvt Ltd">
+                </div>
+              </div>
+
+              <!-- Document Metadata Forensics -->
+              <div class="p-3 rounded-lg bg-slate-950/40 border border-slate-800 text-xs">
+                <div class="text-[11px] font-bold text-slate-400 mb-1">Document Metadata &amp; Digital Signature:</div>
+                <div id="vs-metadata-badge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-400 border border-emerald-800">
+                  Valid Class 3 DSC &middot; Producer: Adobe Acrobat Pro (Clean)
+                </div>
+              </div>
+
+              <!-- Primary Action Button -->
+              <button id="vs-run-btn" onclick="runVerificationPipeline()" class="w-full py-3 px-4 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors shadow-lg shadow-blue-600/20">
+                <span>Run Verification Pipeline</span>
+                <i data-lucide="play" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Right Column (7 cols): Pipeline Execution & Telemetry -->
+          <div class="lg:col-span-7 space-y-4">
+            
+            <!-- 4-Stage Step Tracker -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+              <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">Verification Pipeline Stages</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                  <div id="vs-step-icon-1" class="w-5 h-5 rounded-full border border-slate-700 bg-slate-900 text-slate-500 flex items-center justify-center text-[10px]">1</div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-[11px] font-bold text-white">OCR Extraction</div>
+                    <div id="vs-step-text-1" class="text-xs text-slate-500 truncate">Awaiting execution</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                  <div id="vs-step-icon-2" class="w-5 h-5 rounded-full border border-slate-700 bg-slate-900 text-slate-500 flex items-center justify-center text-[10px]">2</div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-[11px] font-bold text-white">GSTN Handshake</div>
+                    <div id="vs-step-text-2" class="text-xs text-slate-500 truncate">Awaiting execution</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                  <div id="vs-step-icon-3" class="w-5 h-5 rounded-full border border-slate-700 bg-slate-900 text-slate-500 flex items-center justify-center text-[10px]">3</div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-[11px] font-bold text-white">Levenshtein Match</div>
+                    <div id="vs-step-text-3" class="text-xs text-slate-500 truncate">Awaiting execution</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center gap-2.5 p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
+                  <div id="vs-step-icon-4" class="w-5 h-5 rounded-full border border-slate-700 bg-slate-900 text-slate-500 flex items-center justify-center text-[10px]">4</div>
+                  <div class="flex-1 min-w-0">
+                    <div class="text-[11px] font-bold text-white">Risk Scoring</div>
+                    <div id="vs-step-text-4" class="text-xs text-slate-500 truncate">Awaiting execution</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Risk Confidence Gauge & Decision Queue Card -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="gauge" class="w-4 h-4 text-blue-400"></i>
+                  <h3 class="text-sm font-bold text-white">Risk Confidence &amp; Decision Queue</h3>
+                </div>
+                <span id="vs-decision-badge" class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                  AWAITING RUN
+                </span>
+              </div>
+
+              <!-- Score & Gauge Bar -->
+              <div class="space-y-2">
+                <div class="flex items-baseline justify-between">
+                  <span class="text-xs text-slate-400 font-mono">Calculated Risk Score:</span>
+                  <div class="flex items-baseline gap-1">
+                    <span id="vs-score-num" class="text-3xl font-extrabold text-white font-mono">--</span>
+                    <span class="text-xs text-slate-500 font-mono">/ 100</span>
+                  </div>
+                </div>
+                <div class="w-full h-3 bg-slate-950 rounded-full overflow-hidden border border-slate-800 p-0.5">
+                  <div id="vs-score-gauge" class="h-full bg-blue-500 rounded-full transition-all duration-700" style="width: 0%;"></div>
+                </div>
+                <p id="vs-decision-summary" class="text-xs text-slate-300 leading-relaxed pt-1">
+                  Click 'Run Verification Pipeline' to execute automated OCR extraction, registry query, and fuzzy name comparison.
+                </p>
+              </div>
+
+              <!-- Rule-by-rule Breakdown Table -->
+              <div class="overflow-hidden rounded-lg border border-slate-800 text-xs">
+                <table class="w-full text-left">
+                  <thead class="bg-slate-950/80 text-[10px] text-slate-400 uppercase font-mono border-b border-slate-800">
+                    <tr>
+                      <th class="py-2 px-3">Rule Definition</th>
+                      <th class="py-2 px-3">Weight</th>
+                      <th class="py-2 px-3">Rule Status</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-800/60 font-mono text-[11px] bg-slate-900/30">
+                    <tr>
+                      <td class="py-2 px-3 text-slate-300 font-sans">GSTIN &amp; PAN Format Check</td>
+                      <td class="py-2 px-3 text-slate-400">20 pts</td>
+                      <td id="rule-format-score" class="py-2 px-3 text-emerald-400 font-bold">Pending</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2 px-3 text-slate-300 font-sans">PAN-GSTIN Cross-Match (Chars 3 to 12)</td>
+                      <td class="py-2 px-3 text-slate-400">30 pts</td>
+                      <td id="rule-cross-score" class="py-2 px-3 text-emerald-400 font-bold">Pending</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2 px-3 text-slate-300 font-sans">Entity Name Levenshtein Match</td>
+                      <td class="py-2 px-3 text-slate-400">20 pts</td>
+                      <td id="rule-fuzzy-score" class="py-2 px-3 text-amber-400 font-bold">Pending</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2 px-3 text-slate-300 font-sans">Document Metadata &amp; Tampering Check</td>
+                      <td class="py-2 px-3 text-slate-400">20 pts</td>
+                      <td id="rule-meta-score" class="py-2 px-3 text-emerald-400 font-bold">Pending</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Ops Actions Row -->
+              <div class="pt-2 border-t border-slate-800">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">Ops Override &amp; Decision Actions:</div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <button onclick="handleOpsAction('approve')" class="px-3 py-1.5 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-emerald-300 border border-emerald-800 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+                    <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                    <span>Approve Merchant</span>
+                  </button>
+                  <button onclick="handleOpsAction('review')" class="px-3 py-1.5 rounded-lg bg-amber-950 hover:bg-amber-900 text-amber-300 border border-amber-800 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                    <span>Route to Manual Review Queue</span>
+                  </button>
+                  <button onclick="handleOpsAction('reject')" class="px-3 py-1.5 rounded-lg bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+                    <i data-lucide="x" class="w-3.5 h-3.5"></i>
+                    <span>Reject &amp; Trigger Webhook</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Full-Width: Interactive API Request & Response Payload Inspector -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="code" class="w-4 h-4 text-purple-400"></i>
+              <h3 class="text-sm font-bold text-white">Live API Payload Inspector</h3>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">POST /v1/kyc/verify-merchant</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="copyPayload('vs-api-response-json')" class="text-xs text-slate-400 hover:text-white px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors flex items-center gap-1">
+                <i data-lucide="copy" class="w-3 h-3"></i>
+                <span>Copy JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Request Payload (Client &rarr; Engine)</div>
+              <pre class="code-window p-3 text-slate-300 text-[11px] h-60 overflow-y-auto"><code id="vs-api-request-json">// Run pipeline to generate live payload</code></pre>
+            </div>
+            <div>
+              <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1.5">Response Payload (Engine &rarr; Webhook)</div>
+              <pre class="code-window p-3 text-slate-300 text-[11px] h-60 overflow-y-auto"><code id="vs-api-response-json">// Run pipeline to inspect engine response</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Full-Width: On-screen Compliance Audit Trail Log Table -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="list" class="w-4 h-4 text-blue-400"></i>
+              <h3 class="text-sm font-bold text-white">Compliance Audit Trail Log</h3>
+            </div>
+            <span class="text-[11px] font-mono text-slate-400">Live Timestamped Event Queue</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-950/80 text-[10px] text-slate-400 uppercase font-mono border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3">Timestamp</th>
+                  <th class="py-2.5 px-3">Merchant Entity</th>
+                  <th class="py-2.5 px-3">Action</th>
+                  <th class="py-2.5 px-3">Score</th>
+                  <th class="py-2.5 px-3">Status</th>
+                  <th class="py-2.5 px-3">Actor / Rule</th>
+                  <th class="py-2.5 px-3">Hash Trace</th>
+                </tr>
+              </thead>
+              <tbody id="vs-audit-table-body" class="divide-y divide-slate-800/60 font-mono text-xs">
+                <!-- Populated via verishield.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
 
       <!-- Container: PM Specs & PRD View -->
       <div id="verishield-prd-view" class="hidden space-y-6">
-        <!-- Will be populated in Prompt 2 -->
-        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-slate-300">
-          <h3 class="text-base font-bold text-white mb-2">VeriShield PM Specs &amp; PRD Drawer</h3>
-          <p class="text-xs text-slate-400">Structured problem statement, user stories, acceptance criteria, and API contracts.</p>
+        
+        <!-- PRD Header Banner -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 space-y-2">
+          <div class="flex items-center gap-2 text-xs text-blue-400 font-mono">
+            <span>PRD-KYC-2026.04</span>
+            <span>&middot;</span>
+            <span>VeriShield Engine v2.4</span>
+            <span>&middot;</span>
+            <span>Author: Manav Mate (Product Manager)</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">B2B Compliance &amp; Document Risk Engine (PRD)</h2>
+          <p class="text-xs text-slate-300 max-w-3xl leading-relaxed">
+            Technical Product Requirements Document defining automated onboarding verification, fuzzy entity reconciliation, API specifications, and straight-through processing targets for Indian enterprise merchants.
+          </p>
         </div>
+
+        <!-- 4 Grid Sections: Problem, Solution, Metrics, API Specs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Card 1: Problem Statement -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="alert-circle" class="w-4 h-4"></i>
+              <span>1. Problem Statement</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">38% Merchant Onboarding Drop-off from Rigid KYC Checks</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Staffing agencies and B2B platforms in India suffer high drop-offs during merchant onboarding because legacy KYC software relies on exact string matches. A legitimate business with name variations (for example: "Pvt Ltd" vs "Private Limited", or "Services" vs "Ops LLP") gets hard-rejected.
+            </p>
+            <div class="space-y-1.5 text-xs text-slate-400 border-t border-slate-800/80 pt-2">
+              <div>&bull; <strong>Turnaround Delay:</strong> Manual review takes 4 to 24 hours per applicant.</div>
+              <div>&bull; <strong>Revenue Impact:</strong> High-intent merchants churn to competitors during waiting periods.</div>
+              <div>&bull; <strong>False Positive Rate:</strong> 14.2% of rejected merchants were fully compliant.</div>
+            </div>
+          </div>
+
+          <!-- Card 2: Solution Architecture -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="check-circle" class="w-4 h-4"></i>
+              <span>2. Solution Architecture</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Hybrid OCR + Levenshtein Matching + Confidence Thresholds</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              VeriShield implements a 4-tier pipeline combining format checksum regex, cross-field PAN-GSTIN validation, and normalized Levenshtein string distance. Applications are classified into 3 deterministic routing buckets:
+            </p>
+            <div class="space-y-1.5 text-xs text-slate-400 border-t border-slate-800/80 pt-2 font-mono">
+              <div class="text-emerald-400">&bull; Score &gt; 85: Auto-Approve (Straight-Through Processing)</div>
+              <div class="text-amber-400">&bull; Score 60 to 85: Route to 1-Click Ops Review Queue</div>
+              <div class="text-rose-400">&bull; Score &lt; 60: Auto-Reject &amp; Trigger Compliance Webhook</div>
+            </div>
+          </div>
+
+          <!-- Card 3: Key Performance Metrics -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="trending-up" class="w-4 h-4"></i>
+              <span>3. Target Metrics &amp; North Star</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Measurable Business &amp; Operational Outcomes</h3>
+            <div class="grid grid-cols-2 gap-3 pt-1">
+              <div class="p-2.5 rounded bg-slate-950/70 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">Verification Time</div>
+                <div class="text-base font-bold text-emerald-400">8 seconds</div>
+                <div class="text-[10px] text-slate-500">Reduced from 4 hours</div>
+              </div>
+              <div class="p-2.5 rounded bg-slate-950/70 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">Target STP Rate</div>
+                <div class="text-base font-bold text-blue-400">75%+</div>
+                <div class="text-[10px] text-slate-500">Zero human intervention</div>
+              </div>
+              <div class="p-2.5 rounded bg-slate-950/70 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">False Reject Rate</div>
+                <div class="text-base font-bold text-emerald-400">&lt; 1.8%</div>
+                <div class="text-[10px] text-slate-500">Down from 14.2%</div>
+              </div>
+              <div class="p-2.5 rounded bg-slate-950/70 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase">Ops SLA Breaches</div>
+                <div class="text-base font-bold text-purple-400">0.0%</div>
+                <div class="text-[10px] text-slate-500">1-click manual queue</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: API Contract & Webhook Spec -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-purple-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="cpu" class="w-4 h-4"></i>
+              <span>4. Technical API Contract</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Idempotent Endpoint: /v1/kyc/verify-merchant</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Supports synchronous REST calls and asynchronous webhook callbacks for downstream enterprise billing systems.
+            </p>
+            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-[11px] font-mono text-slate-300 space-y-1">
+              <div><span class="text-blue-400">POST</span> /v1/kyc/verify-merchant</div>
+              <div class="text-slate-500">Header: X-Idempotency-Key: uuid-v4</div>
+              <div class="text-slate-400">Webhook Event: <span class="text-emerald-400">merchant.verification.completed</span></div>
+              <div class="text-slate-400">Webhook Event: <span class="text-rose-400">merchant.verification.flagged</span></div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- User Stories & Acceptance Criteria Table -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-4">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <i data-lucide="clipboard-check" class="w-4 h-4 text-emerald-400"></i>
+            <span>User Stories &amp; Acceptance Criteria</span>
+          </h3>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-950/80 text-[10px] text-slate-400 uppercase font-mono border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3">Story ID</th>
+                  <th class="py-2.5 px-3">User Role</th>
+                  <th class="py-2.5 px-3">Requirement</th>
+                  <th class="py-2.5 px-3">Acceptance Criteria</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 font-sans text-slate-300">
+                <tr>
+                  <td class="py-2.5 px-3 font-mono text-blue-400">US-KYC-01</td>
+                  <td class="py-2.5 px-3 font-semibold text-white">B2B Merchant</td>
+                  <td class="py-2.5 px-3">Upload GST certificate and bank statement without waiting hours for manual approvals.</td>
+                  <td class="py-2.5 px-3 text-slate-400">Pipeline validates and approves clean records within 8 seconds with zero human input.</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono text-blue-400">US-KYC-02</td>
+                  <td class="py-2.5 px-3 font-semibold text-white">Risk Analyst</td>
+                  <td class="py-2.5 px-3">Easily inspect fuzzy name differences when minor legal abbreviations occur.</td>
+                  <td class="py-2.5 px-3 text-slate-400">System highlights differing tokens, shows exact Levenshtein %, and offers a 1-click override button.</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono text-blue-400">US-KYC-03</td>
+                  <td class="py-2.5 px-3 font-semibold text-white">Compliance Lead</td>
+                  <td class="py-2.5 px-3">Maintain a tamper-evident audit trail for regulatory compliance under Indian GST and RBI guidelines.</td>
+                  <td class="py-2.5 px-3 text-slate-400">Every automated decision or human override logs an immutable entry with SHA-256 payload hash.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
+
 
     </section>
 
@@ -555,6 +986,7 @@
   </footer>
 
   <!-- Modular Scripts -->
+  <script src="js/verishield.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
