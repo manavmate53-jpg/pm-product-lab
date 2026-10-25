@@ -864,22 +864,286 @@
 
       <!-- Container: Live Product View -->
       <div id="automatch-live-view" class="space-y-6">
-        <!-- Will be populated in Prompt 3 -->
-        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-12 text-center text-slate-400">
-          <i data-lucide="compass" class="w-12 h-12 text-amber-500 mx-auto mb-3 opacity-60"></i>
-          <h3 class="text-base font-bold text-white mb-1">AutoMatch IQ Workspace Initialized</h3>
-          <p class="text-xs max-w-md mx-auto">18-vehicle Mumbai dataset, split-screen discovery, live JSON telemetry console, and Chart.js funnel comparison ready for Product 2 build.</p>
+        
+        <!-- Experiment Mode Switcher -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div class="flex items-center gap-2 mb-0.5">
+                <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                <span class="text-xs font-bold text-white uppercase tracking-wider">A/B Marketplace Discovery Experiment</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Compare cognitive overload between legacy multi-filter search vs. guided 3-step intent matching</p>
+            </div>
+
+            <!-- Experiment Segmented Switcher -->
+            <div class="segmented-control">
+              <button id="btn-mode-quiz" onclick="setMarketplaceMode('quiz')" class="segmented-btn active">
+                Smart Matcher (Variant B)
+              </button>
+              <button id="btn-mode-legacy" onclick="setMarketplaceMode('legacy')" class="segmented-btn">
+                Legacy Filters (Control)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Split-Screen Discovery Workspace (65% / 35%) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+          <!-- Left Column (65% - 8 cols): Consumer Discovery Interface -->
+          <div class="lg:col-span-8 space-y-4">
+            <div id="automatch-discovery-container" class="space-y-4">
+              <!-- Dynamically populated via automatch.js -->
+            </div>
+          </div>
+
+          <!-- Right Column (35% - 4 cols): Live PM Telemetry & Funnel Inspector -->
+          <div class="lg:col-span-4 space-y-4">
+
+            <!-- Telemetry Console Block -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <h3 class="text-xs font-bold text-white uppercase tracking-wider">Live Event Telemetry</h3>
+                </div>
+                <button onclick="clearTelemetryLogs()" class="text-[10px] text-slate-400 hover:text-white px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 transition-colors">
+                  Clear
+                </button>
+              </div>
+
+              <!-- Scrolling Event Console -->
+              <div id="automatch-event-stream" class="space-y-2 h-56 overflow-y-auto pr-1">
+                <!-- Dynamically populated via automatch.js -->
+              </div>
+            </div>
+
+            <!-- A/B Funnel Comparison Chart (Chart.js) -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-amber-400"></i>
+                  <h3 class="text-xs font-bold text-white uppercase tracking-wider">Funnel Conversion Uplift</h3>
+                </div>
+                <span class="text-[10px] font-mono px-1.5 py-0.2 rounded font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">
+                  +121% Uplift
+                </span>
+              </div>
+              <div class="h-44 w-full relative">
+                <canvas id="automatch-funnel-chart"></canvas>
+              </div>
+              <div class="text-[10px] text-slate-400 leading-tight pt-1 border-t border-slate-800/80">
+                Variant B reduces cognitive drop-off at discovery stage, raising lead conversion from <strong>11.2%</strong> to <strong>24.8%</strong>.
+              </div>
+            </div>
+
+            <!-- Interactive SQL Query Runner -->
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="database" class="w-3.5 h-3.5 text-purple-400"></i>
+                  <h3 class="text-xs font-bold text-white uppercase tracking-wider">SQL Analytics Runner</h3>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">PostgreSQL</span>
+              </div>
+
+              <!-- SQL Query Tabs -->
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button id="sql-tab-funnel" onclick="initSqlPreset('funnel')" class="px-2.5 py-1 rounded text-xs font-semibold bg-amber-950 text-amber-300 border border-amber-800">
+                  Funnel Drop-off
+                </button>
+                <button id="sql-tab-cohort" onclick="initSqlPreset('cohort')" class="px-2.5 py-1 rounded text-xs font-semibold text-slate-400 hover:text-white bg-slate-900 border border-slate-800">
+                  Locality CTR
+                </button>
+                <button id="sql-tab-price" onclick="initSqlPreset('price')" class="px-2.5 py-1 rounded text-xs font-semibold text-slate-400 hover:text-white bg-slate-900 border border-slate-800">
+                  Price Elasticity
+                </button>
+              </div>
+
+              <!-- SQL Code View -->
+              <pre class="code-window p-2.5 text-slate-300 text-[10px] h-28 overflow-y-auto"><code id="sql-code-viewer"></code></pre>
+
+              <!-- SQL Data Output Table -->
+              <div class="overflow-x-auto rounded border border-slate-800/80 text-[10px]">
+                <table class="w-full text-left">
+                  <thead id="sql-table-head" class="bg-slate-950 text-slate-400 uppercase font-mono border-b border-slate-800">
+                    <!-- Populated via automatch.js -->
+                  </thead>
+                  <tbody id="sql-table-body" class="divide-y divide-slate-800/60 bg-slate-900/40">
+                    <!-- Populated via automatch.js -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Trade-Off Comparison & TCO Modal -->
+      <div id="automatch-compare-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm hidden">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 space-y-4 shadow-2xl">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="columns" class="w-5 h-5 text-amber-400"></i>
+              <h3 class="text-base font-bold text-white">Side-by-Side Trade-Off &amp; 3-Yr TCO Matrix</h3>
+            </div>
+            <button onclick="closeCompareModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <div id="automatch-compare-content">
+            <!-- Populated via openCompareModal() -->
+          </div>
         </div>
       </div>
 
       <!-- Container: PM Specs & PRD View -->
       <div id="automatch-prd-view" class="hidden space-y-6">
-        <!-- Will be populated in Prompt 3 -->
-        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-slate-300">
-          <h3 class="text-base font-bold text-white mb-2">AutoMatch IQ PM Specs &amp; PRD Drawer</h3>
-          <p class="text-xs text-slate-400">Hypothesis, event taxonomy matrix, zero-result fallback rules, and lead distribution logic.</p>
+        
+        <!-- PRD Header Banner -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-6 space-y-2">
+          <div class="flex items-center gap-2 text-xs text-amber-400 font-mono">
+            <span>PRD-MKT-2026.08</span>
+            <span>&middot;</span>
+            <span>AutoMatch IQ Engine v3.1</span>
+            <span>&middot;</span>
+            <span>Author: Manav Mate (Product Manager)</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">Marketplace Discovery &amp; Funnel Telemetry Engine (PRD)</h2>
+          <p class="text-xs text-slate-300 max-w-3xl leading-relaxed">
+            Product Requirements Document detailing consumer choice overload mitigation, event stream taxonomy, zero-result recommendation fallback, and seller distribution mechanics.
+          </p>
         </div>
+
+        <!-- 4 Grid Sections: Problem, Solution, Metrics, API Specs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Card 1: Problem & Hypothesis -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-rose-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="alert-circle" class="w-4 h-4"></i>
+              <span>1. Problem &amp; Core Hypothesis</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">88.8% Drop-Off Driven by "Paradox of Choice"</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Traditional used car portals present users with 18+ unranked filters. First-time buyers experience decision paralysis, spend an average of 4.2 minutes fiddling with checkboxes, and abandon without scheduling an inspection.
+            </p>
+            <div class="p-3 rounded bg-slate-950/70 border border-slate-800 text-xs text-amber-200">
+              <strong>Core Hypothesis:</strong> Guiding buyers through a 3-step intent questionnaire (Commute &rarr; Monthly TCO &rarr; Must-Have Priority) limits cognitive load, surfaces the Top 3 relevant choices, and doubles search-to-lead conversion.
+            </div>
+          </div>
+
+          <!-- Card 2: Event Taxonomy Matrix -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="list" class="w-4 h-4"></i>
+              <span>2. Event Tracking Taxonomy</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Granular Product Telemetry Specs</h3>
+            <div class="space-y-1.5 text-xs text-slate-300 font-mono">
+              <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                <span class="text-amber-400 font-bold">quiz_step_completed</span>
+                <p class="text-slate-400 text-[11px] font-sans">Triggered on step selection. Props: step_key, value, duration_ms.</p>
+              </div>
+              <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                <span class="text-blue-400 font-bold">tco_compare_drawer_opened</span>
+                <p class="text-slate-400 text-[11px] font-sans">Triggered when 2 cars are selected. Props: car_a_id, car_b_id, tco_diff.</p>
+              </div>
+              <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                <span class="text-emerald-400 font-bold">high_intent_lead_submitted</span>
+                <p class="text-slate-400 text-[11px] font-sans">Key North Star event. Props: listing_id, cohort, buyer_intent.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Zero-Result Fallback Rules -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+              <span>3. Zero-Result Fallback Logic</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Guaranteed Inventory Discovery</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              When restrictive filter combinations yield 0 matching listings, the recommendation engine executes a 3-tier cascade rather than showing a dead-end screen:
+            </p>
+            <div class="space-y-1 text-xs text-slate-400 font-mono">
+              <div>1. <strong>Geo Radius Expansion:</strong> Automatically expands radius by +15 km (e.g. Powai &rarr; Thane).</div>
+              <div>2. <strong>Price Elasticity:</strong> Relaxes budget boundary by &plusmn;10% with high-TCO offsets.</div>
+              <div>3. <strong>Collaborative Fit:</strong> Surfaces vehicles selected by buyers with identical commute profiles.</div>
+            </div>
+          </div>
+
+          <!-- Card 4: Seller Lead Distribution & SLAs -->
+          <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+            <div class="flex items-center gap-2 text-purple-400 font-bold text-xs uppercase tracking-wider">
+              <i data-lucide="shield" class="w-4 h-4"></i>
+              <span>4. Seller Routing &amp; Response SLAs</span>
+            </div>
+            <h3 class="text-sm font-bold text-white">Fair Dealer Allocation &amp; Response Guardrails</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              High-intent inspection leads are dispatched according to dealer tier and response velocity to maximize conversion:
+            </p>
+            <div class="space-y-1 text-xs text-slate-400 font-mono">
+              <div>&bull; <strong>15-Minute Response Cap:</strong> Dealer must confirm appointment in 15 mins or lead reroutes.</div>
+              <div>&bull; <strong>Lead Rotation:</strong> Round-robin distribution among top-rated sellers (inspection grade &ge; 9.0).</div>
+              <div>&bull; <strong>Fraud Prevention:</strong> Phone verification and device fingerprinting to stop phantom leads.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- A/B Experiment Metric Targets Table -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-3">
+          <h3 class="text-sm font-bold text-white flex items-center gap-2">
+            <i data-lucide="trophy" class="w-4 h-4 text-amber-400"></i>
+            <span>Experiment Metric Targets &amp; Results</span>
+          </h3>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-950/80 text-[10px] text-slate-400 uppercase font-mono border-b border-slate-800">
+                <tr>
+                  <th class="py-2.5 px-3">Metric Name</th>
+                  <th class="py-2.5 px-3">Control (Legacy Filters)</th>
+                  <th class="py-2.5 px-3">Variant B (Smart Quiz)</th>
+                  <th class="py-2.5 px-3">Uplift</th>
+                  <th class="py-2.5 px-3">Statistical Significance</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 font-sans text-slate-300">
+                <tr>
+                  <td class="py-2 px-3 font-semibold text-white">Search-to-Lead Rate</td>
+                  <td class="py-2 px-3 font-mono text-slate-400">11.20%</td>
+                  <td class="py-2 px-3 font-mono text-emerald-400 font-bold">24.80%</td>
+                  <td class="py-2 px-3 font-mono text-emerald-400 font-bold">+121.4%</td>
+                  <td class="py-2 px-3 font-mono text-blue-400">p &lt; 0.001 (99.9% Sig)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-semibold text-white">TCO Comparison Usage</td>
+                  <td class="py-2 px-3 font-mono text-slate-400">4.1%</td>
+                  <td class="py-2 px-3 font-mono text-emerald-400 font-bold">38.6%</td>
+                  <td class="py-2 px-3 font-mono text-emerald-400 font-bold">+841.5%</td>
+                  <td class="py-2 px-3 font-mono text-blue-400">p &lt; 0.001 (99.9% Sig)</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-3 font-semibold text-white">Average Session Duration</td>
+                  <td class="py-2 px-3 font-mono text-slate-400">4m 12s (High Friction)</td>
+                  <td class="py-2 px-3 font-mono text-amber-400 font-bold">1m 45s (Fast Decision)</td>
+                  <td class="py-2 px-3 font-mono text-emerald-400 font-bold">-58.3% Time to Value</td>
+                  <td class="py-2 px-3 font-mono text-blue-400">p &lt; 0.01 (99% Sig)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
+
 
     </section>
 
@@ -987,6 +1251,7 @@
 
   <!-- Modular Scripts -->
   <script src="js/verishield.js"></script>
+  <script src="js/automatch.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

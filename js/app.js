@@ -59,6 +59,14 @@ function navigateTo(targetView) {
   if (window.lucide) {
     window.lucide.createIcons();
   }
+
+  // Product specific re-renders on view switch
+  if (targetView === 'automatch') {
+    if (window.renderDiscoveryWorkspace) window.renderDiscoveryWorkspace();
+    setTimeout(() => {
+      if (window.initFunnelChart) window.initFunnelChart();
+    }, 50);
+  }
 }
 
 // Handle Hash Navigation
