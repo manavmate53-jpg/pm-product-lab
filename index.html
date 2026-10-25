@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Manav Mate">
+  <meta name="description" content="Product Management Interactive Lab: Client-side simulations of B2B KYC verification, marketplace telemetry, and production AI evals by Manav Mate.">
+  <title>Manav Mate | PM Product Lab</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            },
+            dark: {
+              bg: '#0b0f17',
+              card: '#0f172a',
+              border: '#1e293b',
+              accent: '#334155'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#0b0f17] text-slate-100 min-h-screen flex flex-col selection:bg-blue-600 selection:text-white">
+
+  <!-- Top Navigation Shell -->
+  <header class="sticky top-0 z-50 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Left: Brand / Title -->
+      <div class="flex items-center space-x-3">
+        <button onclick="navigateTo('hub')" class="flex items-center space-x-2.5 group text-left">
+          <div class="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-mono font-bold group-hover:border-blue-400 transition-colors">
+            MM
+          </div>
+          <div>
+            <div class="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
+              <span>Manav Mate</span>
+              <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-blue-900/50 text-blue-300 border border-blue-700/50">APM LAB</span>
+            </div>
+            <div class="text-[11px] text-slate-400 font-medium">Interactive Product Systems</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Center: Product Tabs -->
+      <nav class="hidden md:flex items-center space-x-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+        <button id="nav-hub" onclick="navigateTo('hub')" class="nav-tab px-3 py-1.5 rounded-lg text-white bg-blue-600 shadow-sm transition-all flex items-center gap-1.5">
+          <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
+          <span>Hub Home</span>
+        </button>
+        <button id="nav-verishield" onclick="navigateTo('verishield')" class="nav-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>1. VeriShield</span>
+          <span class="text-[9px] px-1 py-0.2 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">KYC</span>
+        </button>
+        <button id="nav-automatch" onclick="navigateTo('automatch')" class="nav-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5">
+          <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+          <span>2. AutoMatch IQ</span>
+          <span class="text-[9px] px-1 py-0.2 rounded bg-amber-950 text-amber-400 border border-amber-800">Telemetry</span>
+        </button>
+        <button id="nav-evalguard" onclick="navigateTo('evalguard')" class="nav-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+          <span>3. EvalGuard AI</span>
+          <span class="text-[9px] px-1 py-0.2 rounded bg-purple-950 text-purple-400 border border-purple-800">Evals</span>
+        </button>
+      </nav>
+
+      <!-- Right: Links to Main Portfolio & GitHub -->
+      <div class="flex items-center space-x-2">
+        <a href="https://manavmate53-jpg.github.io/portfolio/#hero" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 rounded-lg transition-colors">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Main Portfolio</span>
+        </a>
+        <a href="https://github.com/manavmate53-jpg" target="_blank" rel="noopener noreferrer" class="p-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors" title="GitHub Profile">
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Mobile Sub-nav -->
+    <div class="md:hidden flex items-center justify-around border-t border-slate-800/80 bg-slate-900/90 py-2 px-2 text-[11px] font-medium">
+      <button onclick="navigateTo('hub')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-blue-400">
+        <i data-lucide="layout-grid" class="w-4 h-4"></i>
+        <span>Hub</span>
+      </button>
+      <button onclick="navigateTo('verishield')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-slate-400">
+        <i data-lucide="shield-check" class="w-4 h-4"></i>
+        <span>VeriShield</span>
+      </button>
+      <button onclick="navigateTo('automatch')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-slate-400">
+        <i data-lucide="compass" class="w-4 h-4"></i>
+        <span>AutoMatch</span>
+      </button>
+      <button onclick="navigateTo('evalguard')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-slate-400">
+        <i data-lucide="cpu" class="w-4 h-4"></i>
+        <span>EvalGuard</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+    <!-- ======================================================== -->
+    <!-- VIEW 1: HUB HOME                                         -->
+    <!-- ======================================================== -->
+    <section id="view-hub" class="view-panel view-animate space-y-8">
+      
+      <!-- Executive Recruiter Banner -->
+      <div class="relative overflow-hidden rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 p-6 sm:p-8">
+        <div class="absolute -right-16 -top-16 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-950/80 text-blue-400 border border-blue-800/80 mb-3.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            100% Client-Side Interactive Architecture
+          </div>
+          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">
+            Product Management Interactive Lab
+          </h1>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+            Tested and tuned for early-career Product Management roles. Instead of passive slide decks, test 3 functional, zero-downtime product simulations. Each workspace includes pre-loaded sample scenarios and a full PM Spec drawer covering PRDs, API schemas, and unit economics.
+          </p>
+          <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 font-mono">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/60">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> Zero API Keys Required
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/60">
+              <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i> Zero Database Sleeping
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/60">
+              <i data-lucide="check-circle" class="w-3.5 h-3.5 text-blue-400"></i> 100% Static on GitHub Pages
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Product Showcase Cards -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="layers" class="w-5 h-5 text-blue-400"></i>
+            <span>Interactive Product Suite</span>
+          </h2>
+          <span class="text-xs text-slate-400">Select any workspace to begin</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+          <!-- Product Card 1: VeriShield -->
+          <div class="group rounded-xl border border-slate-800 hover:border-blue-500/50 bg-slate-900/60 hover:bg-slate-900 transition-all p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-start justify-between">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <i data-lucide="shield-check" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+                  Fintech &middot; Risk Ops
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white group-hover:text-blue-400 transition-colors">
+                  VeriShield
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">B2B KYC &amp; Document Risk Engine</p>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Automated Indian GSTIN &amp; PAN cross-validation, Levenshtein fuzzy entity matching, OCR payload inspect, and confidence-based manual review routing.
+              </p>
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
+                <div class="flex items-center justify-between">
+                  <span>Target Companies:</span>
+                  <span class="text-slate-200">HSBC, IDfy, Equifax</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Key Artifact:</span>
+                  <span class="text-emerald-400">PRD &amp; API Contract</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="navigateTo('verishield')" class="mt-5 w-full py-2.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-sm">
+              <span>Launch VeriShield Lab</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Product Card 2: AutoMatch IQ -->
+          <div class="group rounded-xl border border-slate-800 hover:border-amber-500/50 bg-slate-900/60 hover:bg-slate-900 transition-all p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-start justify-between">
+                <div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                  <i data-lucide="compass" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800">
+                  Marketplace &middot; Telemetry
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white group-hover:text-amber-400 transition-colors">
+                  AutoMatch IQ
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Discovery &amp; Live Funnel Telemetry</p>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Solves choice overload in used vehicle discovery. Legacy filters vs. Smart 3-Step Matcher with real-time JSON event telemetry and SQL funnel queries.
+              </p>
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
+                <div class="flex items-center justify-between">
+                  <span>Target Companies:</span>
+                  <span class="text-slate-200">CarTrade, OLX, Coverfox</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Key Artifact:</span>
+                  <span class="text-amber-400">Event Stream &amp; SQL</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="navigateTo('automatch')" class="mt-5 w-full py-2.5 px-3 rounded-lg bg-slate-800 hover:bg-blue-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-700 hover:border-blue-500">
+              <span>Launch AutoMatch Lab</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Product Card 3: EvalGuard AI -->
+          <div class="group rounded-xl border border-slate-800 hover:border-purple-500/50 bg-slate-900/60 hover:bg-slate-900 transition-all p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-start justify-between">
+                <div class="w-10 h-10 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400">
+                  <i data-lucide="cpu" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">
+                  AI Systems &middot; Evals
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white group-hover:text-purple-400 transition-colors">
+                  EvalGuard AI
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Workflow Agent, Evals &amp; Cost Engine</p>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Production AI agent testing with adversarial prompt injection shields, Pydantic schema guardrails, confidence-based HITL routing, and token unit economics.
+              </p>
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
+                <div class="flex items-center justify-between">
+                  <span>Target Companies:</span>
+                  <span class="text-slate-200">BOMBAYDC, LearnTube</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Key Artifact:</span>
+                  <span class="text-purple-400">20-Case Benchmark</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="navigateTo('evalguard')" class="mt-5 w-full py-2.5 px-3 rounded-lg bg-slate-800 hover:bg-blue-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-700 hover:border-blue-500">
+              <span>Launch EvalGuard Lab</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Recruiter Navigation Guide -->
+      <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-5">
+        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-2">
+          <i data-lucide="help-circle" class="w-4 h-4 text-blue-400"></i>
+          <span>How to evaluate in 60 seconds</span>
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-400">
+          <div class="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
+            <span class="font-bold text-white block mb-1">1. Click Sample Scenarios</span>
+            Use the 1-click preset bar at the top of any product. You never need to type dummy data from scratch.
+          </div>
+          <div class="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
+            <span class="font-bold text-white block mb-1">2. Run the Workflow</span>
+            Trigger verification pipelines, filter marketplace lists, or execute LLM eval test suites with instant feedback.
+          </div>
+          <div class="p-3 rounded-lg bg-slate-950/60 border border-slate-800">
+            <span class="font-bold text-white block mb-1">3. Check PM Specs &amp; PRDs</span>
+            Toggle the top-right switcher to inspect the problem framing, edge cases, acceptance criteria, and API schemas.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 2: PRODUCT 1 - VERISHIELD                           -->
+    <!-- ======================================================== -->
+    <section id="view-verishield" class="view-panel view-animate hidden space-y-6">
+      
+      <!-- Top Header & Segmented Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Product 1</span>
+            <span class="text-xs text-slate-400">Fintech Compliance &middot; B2B Risk Ops</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white">VeriShield Engine</h2>
+          <p class="text-xs sm:text-sm text-slate-400">Automated Indian GSTIN, PAN &amp; Entity Risk Verification</p>
+        </div>
+
+        <!-- Segmented Control Switcher -->
+        <div class="segmented-control">
+          <button id="verishield-btn-live" onclick="switchProductMode('verishield', 'live')" class="segmented-btn active">
+            Live Product View
+          </button>
+          <button id="verishield-btn-prd" onclick="switchProductMode('verishield', 'prd')" class="segmented-btn">
+            PM Specs &amp; PRD
+          </button>
+        </div>
+      </div>
+
+      <!-- Recruiter Interactive Guide Bar -->
+      <div class="recruiter-guide bg-slate-900/80 border border-blue-900/40 rounded-xl p-3 sm:p-4 text-xs">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-bold text-blue-400 flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+            Guided Recruiter Walkthrough
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">3-Step Fast Evaluation</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-slate-300">
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span>
+            <span><strong>Select a Scenario:</strong> Clean Auto-Approve, Fuzzy Name Mismatch, or High-Risk Checksum error.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span>
+            <span><strong>Run Pipeline:</strong> Watch the 4-stage validator calculate risk and Levenshtein distance.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span>
+            <span><strong>Inspect Specs:</strong> Toggle the [PM Specs &amp; PRD] tab to view the API schema and STP targets.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container: Live Product View -->
+      <div id="verishield-live-view" class="space-y-6">
+        <!-- Will be populated in Prompt 2 -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-12 text-center text-slate-400">
+          <i data-lucide="shield-check" class="w-12 h-12 text-emerald-500 mx-auto mb-3 opacity-60"></i>
+          <h3 class="text-base font-bold text-white mb-1">VeriShield Workspace Initialized</h3>
+          <p class="text-xs max-w-md mx-auto">Interactive validator, GSTIN regex engine, OCR inspector, and ops decision queue ready for Product 1 build.</p>
+        </div>
+      </div>
+
+      <!-- Container: PM Specs & PRD View -->
+      <div id="verishield-prd-view" class="hidden space-y-6">
+        <!-- Will be populated in Prompt 2 -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-slate-300">
+          <h3 class="text-base font-bold text-white mb-2">VeriShield PM Specs &amp; PRD Drawer</h3>
+          <p class="text-xs text-slate-400">Structured problem statement, user stories, acceptance criteria, and API contracts.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 3: PRODUCT 2 - AUTOMATCH IQ                         -->
+    <!-- ======================================================== -->
+    <section id="view-automatch" class="view-panel view-animate hidden space-y-6">
+      
+      <!-- Top Header & Segmented Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-950 text-amber-400 border border-amber-800">Product 2</span>
+            <span class="text-xs text-slate-400">Consumer Marketplace &middot; Growth Telemetry</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white">AutoMatch IQ</h2>
+          <p class="text-xs sm:text-sm text-slate-400">High-Intent Discovery Engine &amp; Live PM Telemetry Console</p>
+        </div>
+
+        <!-- Segmented Control Switcher -->
+        <div class="segmented-control">
+          <button id="automatch-btn-live" onclick="switchProductMode('automatch', 'live')" class="segmented-btn active">
+            Live Product View
+          </button>
+          <button id="automatch-btn-prd" onclick="switchProductMode('automatch', 'prd')" class="segmented-btn">
+            PM Specs &amp; PRD
+          </button>
+        </div>
+      </div>
+
+      <!-- Recruiter Interactive Guide Bar -->
+      <div class="recruiter-guide bg-slate-900/80 border border-amber-900/40 rounded-xl p-3 sm:p-4 text-xs">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-bold text-amber-400 flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+            Guided Recruiter Walkthrough
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">Marketplace Experiment</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-slate-300">
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-amber-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span>
+            <span><strong>Toggle Modes:</strong> Compare cognitive load between Legacy Filters vs. Smart 3-Step Matcher.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-amber-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span>
+            <span><strong>Watch Telemetry:</strong> Every click appends real-time JSON tracking events to the right console.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-amber-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span>
+            <span><strong>Execute SQL Queries:</strong> View live funnel drop-off tables and A/B test conversion uplift.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container: Live Product View -->
+      <div id="automatch-live-view" class="space-y-6">
+        <!-- Will be populated in Prompt 3 -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-12 text-center text-slate-400">
+          <i data-lucide="compass" class="w-12 h-12 text-amber-500 mx-auto mb-3 opacity-60"></i>
+          <h3 class="text-base font-bold text-white mb-1">AutoMatch IQ Workspace Initialized</h3>
+          <p class="text-xs max-w-md mx-auto">18-vehicle Mumbai dataset, split-screen discovery, live JSON telemetry console, and Chart.js funnel comparison ready for Product 2 build.</p>
+        </div>
+      </div>
+
+      <!-- Container: PM Specs & PRD View -->
+      <div id="automatch-prd-view" class="hidden space-y-6">
+        <!-- Will be populated in Prompt 3 -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-slate-300">
+          <h3 class="text-base font-bold text-white mb-2">AutoMatch IQ PM Specs &amp; PRD Drawer</h3>
+          <p class="text-xs text-slate-400">Hypothesis, event taxonomy matrix, zero-result fallback rules, and lead distribution logic.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 4: PRODUCT 3 - EVALGUARD AI                         -->
+    <!-- ======================================================== -->
+    <section id="view-evalguard" class="view-panel view-animate hidden space-y-6">
+      
+      <!-- Top Header & Segmented Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-purple-950 text-purple-400 border border-purple-800">Product 3</span>
+            <span class="text-xs text-slate-400">AI Systems &middot; LLM Ops &amp; Evals</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white">EvalGuard AI</h2>
+          <p class="text-xs sm:text-sm text-slate-400">Agentic Workflow with Live Evals, Guardrails &amp; Token Unit Economics</p>
+        </div>
+
+        <!-- Segmented Control Switcher -->
+        <div class="segmented-control">
+          <button id="evalguard-btn-live" onclick="switchProductMode('evalguard', 'live')" class="segmented-btn active">
+            Live Product View
+          </button>
+          <button id="evalguard-btn-prd" onclick="switchProductMode('evalguard', 'prd')" class="segmented-btn">
+            PM Specs &amp; PRD
+          </button>
+        </div>
+      </div>
+
+      <!-- Recruiter Interactive Guide Bar -->
+      <div class="recruiter-guide bg-slate-900/80 border border-purple-900/40 rounded-xl p-3 sm:p-4 text-xs">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-bold text-purple-400 flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+            Guided Recruiter Walkthrough
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">LLM Production Rigor</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-slate-300">
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span>
+            <span><strong>Pick Test Prompt:</strong> Test clean queries, ambiguous refund policy edge cases, or adversarial injection.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span>
+            <span><strong>Tune Confidence &amp; Model:</strong> Observe how confidence thresholds trigger Human-In-The-Loop escalation.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-purple-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span>
+            <span><strong>Calculate Unit Economics:</strong> Compare Llama 3.1 8B vs. GPT-4o latency and cost per 100k requests.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container: Live Product View -->
+      <div id="evalguard-live-view" class="space-y-6">
+        <!-- Will be populated in Prompt 4 -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-12 text-center text-slate-400">
+          <i data-lucide="cpu" class="w-12 h-12 text-purple-500 mx-auto mb-3 opacity-60"></i>
+          <h3 class="text-base font-bold text-white mb-1">EvalGuard AI Workspace Initialized</h3>
+          <p class="text-xs max-w-md mx-auto">Pydantic schema validator, prompt injection shields, token cost calculator, and 20-case batch eval runner ready for Product 3 build.</p>
+        </div>
+      </div>
+
+      <!-- Container: PM Specs & PRD View -->
+      <div id="evalguard-prd-view" class="hidden space-y-6">
+        <!-- Will be populated in Prompt 4 -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/40 p-8 text-slate-300">
+          <h3 class="text-base font-bold text-white mb-2">EvalGuard AI PM Specs &amp; PRD Drawer</h3>
+          <p class="text-xs text-slate-400">System prompt architecture, evaluation rubrics, fallback routing, and compute cost optimization strategy.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Global Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/70 py-6 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center space-x-2">
+        <span class="font-bold text-slate-200">Manav Mate</span>
+        <span>&middot;</span>
+        <span>Associate Product Manager</span>
+        <span>&middot;</span>
+        <span>Mumbai, India</span>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="https://manavmate53-jpg.github.io/portfolio/#hero" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">
+          Main Portfolio
+        </a>
+        <a href="https://github.com/manavmate53-jpg" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors">
+          GitHub
+        </a>
+        <a href="mailto:manavmate53@gmail.com" class="hover:text-blue-400 transition-colors">
+          manavmate53@gmail.com
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modular Scripts -->
+  <script src="js/app.js"></script>
+</body>
+</html>
