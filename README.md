@@ -51,7 +51,7 @@ Live URL: **https://manavmate53-jpg.github.io/pm-product-lab/**
 * **Interactive Features:**
   * 4 Realistic Test Cases: Duplicate billing dispute, ambiguous policy exception, adversarial injection attack, and donor campaign synthesis.
   * Model Selector: Compare Llama 3.1 8B (NVIDIA NIM), Llama 3.1 70B, and GPT-4o.
-  * Dynamic Confidence Slider: Tune HITL escalation thresholds (50% to 95%).
+  * Interactive Confidence Slider: Tune HITL escalation thresholds (50% to 95%).
   * Real-Time Token Unit Economics Calculator: Latency, cost per 1,000 requests, and monthly cost projection at 100k requests/month (demonstrating 86.4% savings on Llama 3.1 8B).
   * Batch Regression Eval Suite: Animated 20-case test runner with summary scorecard (100% schema compliance, 0% hallucination rate, 440ms P95 latency).
 * **Key PM Artifact:** System prompt architecture, 4 quantitative evaluation rubrics, fallback escalation matrix, and compute cost optimization strategy.
