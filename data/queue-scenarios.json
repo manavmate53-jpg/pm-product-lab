@@ -1,0 +1,49 @@
+{
+  "scenarios": [
+    {
+      "id": "mumbai_concert_drop",
+      "title": "Mumbai Stadium Concert Ticket Drop (50,000 Influx)",
+      "subtitle": "Origin server capacity capped at 500 TPS; token bucket waiting room absorbs 50,000 fans with predictable wait times and zero 504 errors.",
+      "influxUsers": 50000,
+      "originTpsLimit": 500,
+      "botPercentage": 8,
+      "queueAlgorithm": "token_bucket_fifo",
+      "averageWaitSeconds": 134,
+      "simulatedDropoffRate": 4.6,
+      "originCpuLoadPct": 68,
+      "cartLockTtlSeconds": 300,
+      "expectedTokensPerSec": 500,
+      "statusMessage": "Queue draining smoothly. Origin database connection pool healthy."
+    },
+    {
+      "id": "flash_sale_bot_wave",
+      "title": "Flagship Smartphone Flash Drop with Adversarial Bot Wave",
+      "subtitle": "25,000 incoming requests with 60% automated scrapers; behavioral heuristics and IP rate tracking isolate 15,000 bots into Captcha room.",
+      "influxUsers": 25000,
+      "originTpsLimit": 400,
+      "botPercentage": 60,
+      "queueAlgorithm": "proof_of_work_filter",
+      "averageWaitSeconds": 62,
+      "simulatedDropoffRate": 2.1,
+      "originCpuLoadPct": 52,
+      "cartLockTtlSeconds": 180,
+      "expectedTokensPerSec": 400,
+      "statusMessage": "15,000 bot requests quarantined. Verified human buyers passing to checkout gate."
+    },
+    {
+      "id": "origin_degraded_slowdown",
+      "title": "Origin Database Saturation with Graceful Adaptive Throttling",
+      "subtitle": "Origin query latency rises above 850ms; edge queue automatically downshifts admission rate from 450 to 180 TPS to avert cascade downtime.",
+      "influxUsers": 15000,
+      "originTpsLimit": 180,
+      "botPercentage": 5,
+      "queueAlgorithm": "adaptive_backpressure",
+      "averageWaitSeconds": 195,
+      "simulatedDropoffRate": 6.8,
+      "originCpuLoadPct": 84,
+      "cartLockTtlSeconds": 240,
+      "expectedTokensPerSec": 180,
+      "statusMessage": "Adaptive throttle active. Preventing PostgreSQL connection pool exhaustion."
+    }
+  ]
+}

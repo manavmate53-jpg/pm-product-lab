@@ -1,0 +1,113 @@
+{
+  "gateways": [
+    {
+      "id": "cashfree",
+      "name": "Cashfree Payments",
+      "type": "Primary UPI & Netbanking",
+      "healthScore": 99,
+      "status": "Optimal",
+      "p95LatencyMs": 185,
+      "successRate": 98.4,
+      "baseUpiMdr": 0.00,
+      "baseCardMdr": 1.75,
+      "intlCardMdr": 2.85,
+      "supportsInstantRefund": true,
+      "uptime30d": "99.98%"
+    },
+    {
+      "id": "razorpay",
+      "name": "Razorpay Rail",
+      "type": "Multi-Rail Enterprise",
+      "healthScore": 74,
+      "status": "Degraded",
+      "p95LatencyMs": 1420,
+      "successRate": 89.2,
+      "baseUpiMdr": 0.00,
+      "baseCardMdr": 1.90,
+      "intlCardMdr": 2.95,
+      "supportsInstantRefund": true,
+      "uptime30d": "99.82%"
+    },
+    {
+      "id": "stripe",
+      "name": "Stripe India",
+      "type": "Global Cards & Cross-Border",
+      "healthScore": 98,
+      "status": "Optimal",
+      "p95LatencyMs": 220,
+      "successRate": 99.1,
+      "baseUpiMdr": 0.00,
+      "baseCardMdr": 2.00,
+      "intlCardMdr": 2.90,
+      "supportsInstantRefund": true,
+      "uptime30d": "99.99%"
+    },
+    {
+      "id": "payu",
+      "name": "PayU India",
+      "type": "Backup Netbanking Rail",
+      "healthScore": 92,
+      "status": "Healthy",
+      "p95LatencyMs": 340,
+      "successRate": 94.6,
+      "baseUpiMdr": 0.00,
+      "baseCardMdr": 1.85,
+      "intlCardMdr": 3.10,
+      "supportsInstantRefund": false,
+      "uptime30d": "99.90%"
+    }
+  ],
+  "presets": [
+    {
+      "id": "upi_flash_hdfc_spike",
+      "title": "UPI Flash Checkout (₹1,499) with HDFC Netbanking Degradation",
+      "subtitle": "Razorpay latency spikes to 1.4s with 11% error rate; router auto-cascades to Cashfree in 185ms with zero user drop-off.",
+      "amountInr": 1499,
+      "paymentMethod": "upi",
+      "customerVpa": "merchant.test@okhdfcbank",
+      "cardBin": null,
+      "simulatedBankHealth": "degraded_hdfc",
+      "routingStrategy": "success_rate",
+      "expectedPrimaryGateway": "razorpay",
+      "failoverGateway": "cashfree",
+      "failoverReason": "Gateway Latency > 1,000ms and Success Rate < 90%",
+      "savedMdrBps": 15,
+      "simulatedLatencyMs": 185,
+      "refundEligible": true
+    },
+    {
+      "id": "corp_intl_card_dispute",
+      "title": "Corporate Invoice (₹85,000) with International Card Routing",
+      "subtitle": "Cross-border corporate card routed via Stripe to minimize fraud declines and secure lowest international interchange fees.",
+      "amountInr": 85000,
+      "paymentMethod": "card_intl",
+      "customerVpa": null,
+      "cardBin": "424242 (Visa Corporate USD)",
+      "simulatedBankHealth": "healthy",
+      "routingStrategy": "cost_optimization",
+      "expectedPrimaryGateway": "stripe",
+      "failoverGateway": "cashfree",
+      "failoverReason": "Zero failover needed; lowest international MDR tier selected",
+      "savedMdrBps": 45,
+      "simulatedLatencyMs": 220,
+      "refundEligible": true
+    },
+    {
+      "id": "instant_refund_idempotency",
+      "title": "Duplicate Charge Refund (₹3,200) with Idempotency Lock",
+      "subtitle": "Simultaneous customer webhook triggers automated duplicate lock; resolves instant payout via Cashfree Faster Payouts in 120ms.",
+      "amountInr": 3200,
+      "paymentMethod": "upi",
+      "customerVpa": "user.sharma@paytm",
+      "cardBin": null,
+      "simulatedBankHealth": "healthy",
+      "routingStrategy": "instant_refund",
+      "expectedPrimaryGateway": "cashfree",
+      "failoverGateway": null,
+      "failoverReason": "Idempotent reverse ledger match; zero double debit",
+      "savedMdrBps": 0,
+      "simulatedLatencyMs": 120,
+      "refundEligible": true
+    }
+  ]
+}

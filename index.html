@@ -65,25 +65,34 @@
       </div>
 
       <!-- Center: Product Tabs -->
-      <nav class="hidden md:flex items-center space-x-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
-        <button id="nav-hub" onclick="navigateTo('hub')" class="nav-tab px-3 py-1.5 rounded-lg text-white bg-blue-600 shadow-sm transition-all flex items-center gap-1.5">
+      <nav class="hidden lg:flex items-center space-x-1 bg-slate-900/80 p-1 rounded-xl border border-slate-800 text-xs font-semibold overflow-x-auto">
+        <button id="nav-hub" onclick="navigateTo('hub')" class="nav-tab px-2.5 py-1.5 rounded-lg text-white bg-blue-600 shadow-sm transition-all flex items-center gap-1">
           <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
-          <span>Hub Home</span>
+          <span>Hub</span>
         </button>
-        <button id="nav-verishield" onclick="navigateTo('verishield')" class="nav-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5">
+        <button id="nav-verishield" onclick="navigateTo('verishield')" class="nav-tab px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1">
           <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
           <span>1. VeriShield</span>
-          <span class="text-[9px] px-1 py-0.2 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">KYC</span>
         </button>
-        <button id="nav-automatch" onclick="navigateTo('automatch')" class="nav-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5">
+        <button id="nav-automatch" onclick="navigateTo('automatch')" class="nav-tab px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1">
           <i data-lucide="compass" class="w-3.5 h-3.5"></i>
-          <span>2. AutoMatch IQ</span>
-          <span class="text-[9px] px-1 py-0.2 rounded bg-amber-950 text-amber-400 border border-amber-800">Telemetry</span>
+          <span>2. AutoMatch</span>
         </button>
-        <button id="nav-evalguard" onclick="navigateTo('evalguard')" class="nav-tab px-3 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1.5">
+        <button id="nav-evalguard" onclick="navigateTo('evalguard')" class="nav-tab px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1">
           <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
-          <span>3. EvalGuard AI</span>
-          <span class="text-[9px] px-1 py-0.2 rounded bg-purple-950 text-purple-400 border border-purple-800">Evals</span>
+          <span>3. EvalGuard</span>
+        </button>
+        <button id="nav-payrouter" onclick="navigateTo('payrouter')" class="nav-tab px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1">
+          <i data-lucide="credit-card" class="w-3.5 h-3.5"></i>
+          <span>4. PayRouter</span>
+        </button>
+        <button id="nav-flashqueue" onclick="navigateTo('flashqueue')" class="nav-tab px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          <span>5. FlashQueue</span>
+        </button>
+        <button id="nav-crewrostering" onclick="navigateTo('crewrostering')" class="nav-tab px-2.5 py-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-all flex items-center gap-1">
+          <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+          <span>6. CrewRoster</span>
         </button>
       </nav>
 
@@ -100,22 +109,28 @@
     </div>
 
     <!-- Mobile Sub-nav -->
-    <div class="md:hidden flex items-center justify-around border-t border-slate-800/80 bg-slate-900/90 py-2 px-2 text-[11px] font-medium">
-      <button onclick="navigateTo('hub')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-blue-400">
-        <i data-lucide="layout-grid" class="w-4 h-4"></i>
+    <div class="lg:hidden flex items-center overflow-x-auto whitespace-nowrap space-x-2 border-t border-slate-800/80 bg-slate-900/90 py-2 px-3 text-[11px] font-medium">
+      <button onclick="navigateTo('hub')" class="mobile-nav-tab inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800 text-blue-400">
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i>
         <span>Hub</span>
       </button>
-      <button onclick="navigateTo('verishield')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-slate-400">
-        <i data-lucide="shield-check" class="w-4 h-4"></i>
-        <span>VeriShield</span>
+      <button onclick="navigateTo('verishield')" class="mobile-nav-tab inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/60 text-slate-300">
+        <span>1. VeriShield</span>
       </button>
-      <button onclick="navigateTo('automatch')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-slate-400">
-        <i data-lucide="compass" class="w-4 h-4"></i>
-        <span>AutoMatch</span>
+      <button onclick="navigateTo('automatch')" class="mobile-nav-tab inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/60 text-slate-300">
+        <span>2. AutoMatch</span>
       </button>
-      <button onclick="navigateTo('evalguard')" class="mobile-nav-tab flex flex-col items-center gap-0.5 text-slate-400">
-        <i data-lucide="cpu" class="w-4 h-4"></i>
-        <span>EvalGuard</span>
+      <button onclick="navigateTo('evalguard')" class="mobile-nav-tab inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/60 text-slate-300">
+        <span>3. EvalGuard</span>
+      </button>
+      <button onclick="navigateTo('payrouter')" class="mobile-nav-tab inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/60 text-slate-300">
+        <span>4. PayRouter</span>
+      </button>
+      <button onclick="navigateTo('flashqueue')" class="mobile-nav-tab inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/60 text-slate-300">
+        <span>5. FlashQueue</span>
+      </button>
+      <button onclick="navigateTo('crewrostering')" class="mobile-nav-tab inline-flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800/60 text-slate-300">
+        <span>6. CrewRoster</span>
       </button>
     </div>
   </header>
@@ -140,7 +155,7 @@
             Product Management Interactive Lab
           </h1>
           <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-            Tested and tuned for early-career Product Management roles. Instead of passive slide decks, test 3 functional, zero-downtime product simulations. Each workspace includes pre-loaded sample scenarios and a full PM Spec drawer covering PRDs, API schemas, and unit economics.
+            Tested and tuned for early-career Product Management roles. Instead of passive slide decks, test 6 functional, zero-downtime product simulations. Each workspace includes pre-loaded sample scenarios and a full PM Spec drawer covering PRDs, API schemas, and unit economics.
           </p>
           <div class="flex flex-wrap items-center gap-3 text-xs text-slate-400 font-mono">
             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/60 border border-slate-700/60">
@@ -166,7 +181,7 @@
           <span class="text-xs text-slate-400">Select any workspace to begin</span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
           <!-- Product Card 1: VeriShield -->
           <div class="group rounded-xl border border-slate-800 hover:border-blue-500/50 bg-slate-900/60 hover:bg-slate-900 transition-all p-5 flex flex-col justify-between">
@@ -279,6 +294,117 @@
             </button>
           </div>
 
+          <!-- Product Card 4: PayRouter -->
+          <div class="group rounded-xl border border-slate-800 hover:border-emerald-500/50 bg-slate-900/60 hover:bg-slate-900 transition-all p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-start justify-between">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <i data-lucide="credit-card" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800">
+                  Fintech &middot; Payment Rails
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
+                  PayRouter Engine
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Multi-Gateway Router &amp; Instant Refunds</p>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Smart cascade fallback between Razorpay, Cashfree, and Stripe during bank downtime, fee/MDR optimization, webhook idempotency, and automated instant refund reconciliation.
+              </p>
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
+                <div class="flex items-center justify-between">
+                  <span>Target Companies:</span>
+                  <span class="text-slate-200">Razorpay, Cashfree, Juspay</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Key Artifact:</span>
+                  <span class="text-emerald-400">Cascade PRD &amp; Idempotency Lock</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="navigateTo('payrouter')" class="mt-5 w-full py-2.5 px-3 rounded-lg bg-slate-800 hover:bg-blue-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-700 hover:border-blue-500">
+              <span>Launch PayRouter Lab</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Product Card 5: FlashQueue -->
+          <div class="group rounded-xl border border-slate-800 hover:border-pink-500/50 bg-slate-900/60 hover:bg-slate-900 transition-all p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-start justify-between">
+                <div class="w-10 h-10 rounded-lg bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400">
+                  <i data-lucide="users" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-pink-950 text-pink-300 border border-pink-800">
+                  Infra &middot; High Concurrency
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white group-hover:text-pink-400 transition-colors">
+                  FlashQueue Simulator
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Virtual Waiting Room &amp; Bot Shield</p>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Token bucket waiting room buffering 50,000+ influx spikes, bot fingerprint velocity quarantine, and adaptive origin throttling to eliminate 504 gateway timeouts.
+              </p>
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
+                <div class="flex items-center justify-between">
+                  <span>Target Companies:</span>
+                  <span class="text-slate-200">BookMyShow, Flipkart, IRCTC</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Key Artifact:</span>
+                  <span class="text-pink-400">Token Bucket PRD &amp; Cart TTL</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="navigateTo('flashqueue')" class="mt-5 w-full py-2.5 px-3 rounded-lg bg-slate-800 hover:bg-blue-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-700 hover:border-blue-500">
+              <span>Launch FlashQueue Lab</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Product Card 6: CrewRoster -->
+          <div class="group rounded-xl border border-slate-800 hover:border-cyan-500/50 bg-slate-900/60 hover:bg-slate-900 transition-all p-5 flex flex-col justify-between">
+            <div class="space-y-4">
+              <div class="flex items-start justify-between">
+                <div class="w-10 h-10 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                  <i data-lucide="calendar" class="w-5 h-5"></i>
+                </div>
+                <span class="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">
+                  Operations &middot; Labor Logistics
+                </span>
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">
+                  CrewRoster Dashboard
+                </h3>
+                <p class="text-xs text-slate-400 mt-0.5">Field Rostering &amp; SLA Escalation</p>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Grounded in NeoManpower operations managing 133 staff across Mumbai venues (BKC, NESCO). Automated shift buffers, 15-minute emergency fill SLA timer, and 100% QR payout reconciliation.
+              </p>
+              <div class="space-y-1.5 pt-2 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
+                <div class="flex items-center justify-between">
+                  <span>Target Companies:</span>
+                  <span class="text-slate-200">Urban Company, Zepto, Porter</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span>Key Artifact:</span>
+                  <span class="text-cyan-400">SLA Ops PRD &amp; Hours Audit</span>
+                </div>
+              </div>
+            </div>
+            <button onclick="navigateTo('crewrostering')" class="mt-5 w-full py-2.5 px-3 rounded-lg bg-slate-800 hover:bg-blue-600 text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-700 hover:border-blue-500">
+              <span>Launch CrewRoster Lab</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
         </div>
       </div>
 
@@ -307,7 +433,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- VIEW 2: PRODUCT 1 - VERISHIELD                           -->
+    <!-- VIEW 2: PRODUCT 1: VERISHIELD                           -->
     <!-- ======================================================== -->
     <section id="view-verishield" class="view-panel view-animate hidden space-y-6">
       
@@ -811,7 +937,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- VIEW 3: PRODUCT 2 - AUTOMATCH IQ                         -->
+    <!-- VIEW 3: PRODUCT 2: AUTOMATCH IQ                         -->
     <!-- ======================================================== -->
     <section id="view-automatch" class="view-panel view-animate hidden space-y-6">
       
@@ -1148,7 +1274,7 @@
     </section>
 
     <!-- ======================================================== -->
-    <!-- VIEW 4: PRODUCT 3 - EVALGUARD AI                         -->
+    <!-- VIEW 4: PRODUCT 3: EVALGUARD AI                         -->
     <!-- ======================================================== -->
     <section id="view-evalguard" class="view-panel view-animate hidden space-y-6">
       
@@ -1671,6 +1797,884 @@
 
       </div>
 
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 5: PRODUCT 4: PAYROUTER                             -->
+    <!-- ======================================================== -->
+    <section id="view-payrouter" class="view-panel view-animate hidden space-y-6">
+      
+      <!-- Top Header & Segmented Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Product 4</span>
+            <span class="text-xs text-slate-400">Fintech Rails &middot; Multi-Gateway Cascade</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white">PayRouter Engine</h2>
+          <p class="text-xs sm:text-sm text-slate-400">Smart Payment Cascade, MDR Optimization &amp; Instant Refund Idempotency</p>
+        </div>
+
+        <!-- Segmented Control Switcher -->
+        <div class="segmented-control">
+          <button id="payrouter-btn-live" onclick="switchProductMode('payrouter', 'live')" class="segmented-btn active">
+            Live Product View
+          </button>
+          <button id="payrouter-btn-prd" onclick="switchProductMode('payrouter', 'prd')" class="segmented-btn">
+            PM Specs &amp; PRD
+          </button>
+        </div>
+      </div>
+
+      <!-- Recruiter Interactive Guide Bar -->
+      <div class="recruiter-guide bg-slate-900/80 border border-blue-900/40 rounded-xl p-3 sm:p-4 text-xs">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-bold text-blue-400 flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+            Guided Recruiter Walkthrough
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">3-Step Fast Evaluation</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-slate-300">
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span>
+            <span><strong>Select a Scenario:</strong> UPI HDFC Spike, International Card Routing, or Duplicate Refund.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span>
+            <span><strong>Execute Routing:</strong> Watch smart failover cascade in under 200ms and inspect fee savings.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span>
+            <span><strong>Inspect Specs:</strong> Toggle [PM Specs &amp; PRD] to review the cascade state machine and idempotency contracts.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container: Live Product View -->
+      <div id="payrouter-live-view" class="space-y-6">
+        
+        <!-- 1-Click Scenario Selector -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span class="text-xs font-bold text-white uppercase tracking-wider">1-Click Sample Scenarios</span>
+            </div>
+            <span class="text-[11px] text-slate-400">Click any preset to test failover routing or refund reconciliation</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button id="pay-preset-btn-upi_flash_hdfc_spike" onclick="selectPaymentPreset('upi_flash_hdfc_spike')" class="text-left p-3 rounded-lg border border-emerald-500 bg-emerald-950/40 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors">Preset A</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-amber-950 text-amber-400 border border-amber-800">Cascade Failover</span>
+              </div>
+              <p class="text-[11px] text-slate-300">UPI Flash Checkout (₹1,499)</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">HDFC Bank Spike &rarr; Cashfree Failover</div>
+            </button>
+
+            <button id="pay-preset-btn-corp_intl_card_dispute" onclick="selectPaymentPreset('corp_intl_card_dispute')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-emerald-400 transition-colors">Preset B</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-blue-950 text-blue-400 border border-blue-800">MDR Optimization</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Corporate Invoice (₹85,000)</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">International Visa &rarr; Stripe 45 bps Save</div>
+            </button>
+
+            <button id="pay-preset-btn-instant_refund_idempotency" onclick="selectPaymentPreset('instant_refund_idempotency')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-emerald-400 transition-colors">Preset C</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">Idempotency Lock</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Duplicate Charge (₹3,200)</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">Zero Double Debit &middot; Instant Settlement</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Workspace Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Left Column (5 cols): Controls -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-emerald-400"></i>
+                  <h3 class="text-sm font-bold text-white">Transaction Parameters</h3>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Cascading Logic</span>
+              </div>
+
+              <!-- Payment Amount -->
+              <div>
+                <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Transaction Amount (INR)</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-2.5 text-xs text-slate-400 font-bold">₹</span>
+                  <input id="pay-input-amount" type="number" value="1499" class="w-full bg-slate-900 border border-slate-700 rounded-lg pl-7 pr-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                </div>
+              </div>
+
+              <!-- Payment Method -->
+              <div>
+                <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Payment Method</label>
+                <select id="pay-input-method" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                  <option value="upi">UPI (Collect &amp; Intent Rail)</option>
+                  <option value="card_domestic">Domestic Credit/Debit Card</option>
+                  <option value="card_intl">International Card (USD / Cross-Border)</option>
+                  <option value="netbanking">Netbanking (Direct Bank Switch)</option>
+                </select>
+              </div>
+
+              <!-- Simulated Bank Spike -->
+              <div>
+                <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Simulated Bank Health Status</label>
+                <select id="pay-input-bank-health" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                  <option value="degraded_hdfc">HDFC Bank Spike (Razorpay 1,420ms Latency)</option>
+                  <option value="healthy">All Banking Switches Optimal (&lt; 300ms)</option>
+                </select>
+              </div>
+
+              <!-- Routing Strategy -->
+              <div>
+                <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Routing Optimization Objective</label>
+                <select id="pay-input-strategy" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 transition-colors">
+                  <option value="success_rate">Smart Cascade: Maximize Success Rate (&ge; 98%)</option>
+                  <option value="cost_optimization">Fee Optimization: Lowest Merchant MDR</option>
+                  <option value="latency">Low Latency Rail (&lt; 200ms)</option>
+                </select>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="pt-2 space-y-2">
+                <button onclick="executePaymentRouting()" class="w-full py-2.5 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm">
+                  <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                  <span>Simulate Payment Routing</span>
+                </button>
+                <button onclick="executeInstantRefundSimulation()" class="w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors border border-slate-700">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-blue-400"></i>
+                  <span>Test Instant Refund Idempotency</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column (7 cols): Telemetry & Output -->
+          <div class="lg:col-span-7 space-y-4">
+            
+            <!-- Gateway Health Grid -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="activity" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  Multi-Gateway Real-Time Health Matrix
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Updated every 15s</span>
+              </div>
+              <div id="pay-gateway-health-grid" class="grid grid-cols-2 gap-3">
+                <!-- Dynamically populated via payrouter.js -->
+              </div>
+            </div>
+
+            <!-- Decision Summary Card -->
+            <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 space-y-3">
+              <div class="grid grid-cols-3 gap-3 text-center border-b border-slate-800 pb-3">
+                <div>
+                  <span class="text-[10px] text-slate-400 block font-mono">Selected Gateway</span>
+                  <span id="pay-out-primary" class="text-xs font-bold text-emerald-400 font-mono">Cashfree Payments</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-400 block font-mono">P95 Latency</span>
+                  <span id="pay-out-latency" class="text-xs font-bold text-white font-mono">185ms</span>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-400 block font-mono">Cost Savings</span>
+                  <span id="pay-out-savings" class="text-xs font-bold text-blue-400 font-mono">₹2.25 saved (15 bps)</span>
+                </div>
+              </div>
+              <div>
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Routing Reason &amp; Audit:</span>
+                <p id="pay-out-reason" class="text-xs text-slate-300 leading-relaxed font-sans">
+                  Razorpay UPI rail latency spiked to 1,420ms with 11.5% drop rate. Router auto-cascaded to Cashfree rail.
+                </p>
+              </div>
+            </div>
+
+            <!-- Waterfall Execution Log -->
+            <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="git-commit" class="w-3.5 h-3.5 text-blue-400"></i>
+                  Waterfall Execution Flow
+                </span>
+                <span class="text-[10px] font-mono text-emerald-400">0% Dropped Transactions</span>
+              </div>
+              <div id="pay-waterfall-log" class="space-y-1">
+                <!-- Populated via payrouter.js -->
+              </div>
+            </div>
+
+            <!-- JSON Payload & Idempotency Inspector -->
+            <div class="rounded-xl border border-slate-800 bg-slate-950 p-4 font-mono text-xs">
+              <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-800">
+                <span class="text-[11px] font-bold text-slate-400">PAYLOAD &amp; IDEMPOTENCY INSPECTOR</span>
+                <span class="text-[10px] text-slate-500">ISO-8583 / JSON Contract</span>
+              </div>
+              <pre id="pay-json-payload" class="text-[11px] text-slate-300 overflow-x-auto max-h-48 leading-relaxed"></pre>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Container: PM Specs & PRD View -->
+      <div id="payrouter-prd-view" class="hidden space-y-6">
+        
+        <div class="p-6 rounded-xl border border-slate-800 bg-slate-900/40 space-y-6">
+          <div class="border-b border-slate-800 pb-4">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">PRD SPECIFICATION</span>
+            <h3 class="text-xl font-bold text-white mt-2">Multi-Gateway Payment Router &amp; Instant Refund Reconciliation Engine</h3>
+            <p class="text-xs text-slate-400 mt-1">Author: Manav Mate &middot; Associate Product Manager &middot; Status: Ready for Production</p>
+          </div>
+
+          <!-- 1. Problem Statement -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-emerald-400">1. Problem Statement &amp; Business Context</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              High-volume Indian merchants experience between 4% and 8% failed checkout attempts due to localized bank switch outages, gateway degradation, and network timeouts. When checkout transactions fail, 62% of consumers abandon their carts. Furthermore, instant customer refunds often encounter double-debit race conditions when customer webhooks fire concurrently during payment disputes.
+            </p>
+          </div>
+
+          <!-- 2. User Stories & Acceptance Criteria -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-emerald-400">2. User Stories &amp; Acceptance Criteria</h4>
+            <div class="space-y-2 text-xs text-slate-300 font-mono bg-slate-950/60 p-4 rounded-lg border border-slate-800">
+              <p><strong>Story 1:</strong> As a checkout consumer, I want my payment intent to automatically succeed via a secondary gateway if the primary bank switch is slow, so that I do not have to re-enter payment details.</p>
+              <p class="text-slate-400"><strong>Scenario:</strong> Given Razorpay UPI latency exceeds 800ms or error rate exceeds 10%, When a payment intent is submitted, Then cascade the payload to Cashfree in under 250ms without user interruption.</p>
+              <div class="pt-2 border-t border-slate-800"></div>
+              <p><strong>Story 2:</strong> As a finance operations manager, I want instant refunds to verify strict idempotency locks, so that duplicate dispute webhooks never issue multiple customer payouts.</p>
+            </div>
+          </div>
+
+          <!-- 3. State Machine & Routing Logic -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-emerald-400">3. State Machine &amp; Routing Topology</h4>
+            <div class="p-4 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono text-slate-300 space-y-1">
+              <div>[1. INITIATED] &rarr; Validate payment intent payload &amp; idempotency key</div>
+              <div>[2. RISK_CHECK] &rarr; Evaluate card velocity &amp; fraud score (Threshold: &lt; 0.15)</div>
+              <div>[3. PRIMARY_PROBE] &rarr; Route to preferred rail based on MDR optimization</div>
+              <div>[4. HEALTH_WATCHDOG] &rarr; If response latency &gt; 800ms OR HTTP 5xx &rarr; Trigger CASCADE_ATTEMPT_2</div>
+              <div>[5. NPCI_ACK] &rarr; Secondary rail completes in 185ms &rarr; SETTLED</div>
+              <div>[6. REVERSE_LEDGER] &rarr; Match settlement batches for zero reconciliation variance</div>
+            </div>
+          </div>
+
+          <!-- 4. Target SLOs & Metrics -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-emerald-400">4. North Star Metric &amp; Service Level Objectives (SLOs)</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Payment Success Rate</span>
+                <span class="text-emerald-400 font-bold text-sm">&ge; 98.2%</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Failover Cascade P95</span>
+                <span class="text-white font-bold text-sm">&le; 250ms</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">MDR Cost Savings</span>
+                <span class="text-blue-400 font-bold text-sm">15-45 bps</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Double Refund Rate</span>
+                <span class="text-emerald-400 font-bold text-sm">0.00%</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 6: PRODUCT 5: FLASHQUEUE                            -->
+    <!-- ======================================================== -->
+    <section id="view-flashqueue" class="view-panel view-animate hidden space-y-6">
+      
+      <!-- Top Header & Segmented Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-pink-950 text-pink-400 border border-pink-800">Product 5</span>
+            <span class="text-xs text-slate-400">High Concurrency &middot; Origin Shielding</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white">FlashQueue Simulator</h2>
+          <p class="text-xs sm:text-sm text-slate-400">High-Concurrency Virtual Waiting Room, Bot Defense &amp; Adaptive Throttling</p>
+        </div>
+
+        <!-- Segmented Control Switcher -->
+        <div class="segmented-control">
+          <button id="flashqueue-btn-live" onclick="switchProductMode('flashqueue', 'live')" class="segmented-btn active">
+            Live Product View
+          </button>
+          <button id="flashqueue-btn-prd" onclick="switchProductMode('flashqueue', 'prd')" class="segmented-btn">
+            PM Specs &amp; PRD
+          </button>
+        </div>
+      </div>
+
+      <!-- Recruiter Interactive Guide Bar -->
+      <div class="recruiter-guide bg-slate-900/80 border border-blue-900/40 rounded-xl p-3 sm:p-4 text-xs">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-bold text-blue-400 flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+            Guided Recruiter Walkthrough
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">3-Step Fast Evaluation</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-slate-300">
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span>
+            <span><strong>Select a Scenario:</strong> 50k Stadium Drop, Adversarial Bot Wave, or Origin CPU Saturation.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span>
+            <span><strong>Simulate Queue:</strong> Inject surge traffic, watch edge token admission, and drain batches.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span>
+            <span><strong>Inspect Specs:</strong> Toggle [PM Specs &amp; PRD] to check token bucket math and cart lock TTL rules.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container: Live Product View -->
+      <div id="flashqueue-live-view" class="space-y-6">
+        
+        <!-- 1-Click Scenario Selector -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-pink-500"></span>
+              <span class="text-xs font-bold text-white uppercase tracking-wider">1-Click Sample Scenarios</span>
+            </div>
+            <span class="text-[11px] text-slate-400">Click any preset to test token bucket concurrency handling</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button id="queue-preset-btn-mumbai_concert_drop" onclick="selectQueueScenario('mumbai_concert_drop')" class="text-left p-3 rounded-lg border border-pink-500 bg-pink-950/40 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-white group-hover:text-pink-400 transition-colors">Preset A</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-pink-950 text-pink-400 border border-pink-800">50k Surge</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Mumbai Concert Drop</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">500 TPS Origin Cap &middot; Token Bucket FIFO</div>
+            </button>
+
+            <button id="queue-preset-btn-flash_sale_bot_wave" onclick="selectQueueScenario('flash_sale_bot_wave')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-pink-400 transition-colors">Preset B</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-amber-950 text-amber-400 border border-amber-800">60% Bot Wave</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Phone Flash Sale Attack</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">15k Scrapers Quarantined to Captcha</div>
+            </button>
+
+            <button id="queue-preset-btn-origin_degraded_slowdown" onclick="selectQueueScenario('origin_degraded_slowdown')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-pink-400 transition-colors">Preset C</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800">Adaptive Backpressure</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Origin CPU Saturation (88%)</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">Throttle 450 &rarr; 180 TPS &middot; Zero 504s</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Workspace Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Left Column (5 cols): Controls -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-pink-400"></i>
+                  <h3 class="text-sm font-bold text-white">Queue &amp; Origin Configuration</h3>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Token Bucket</span>
+              </div>
+
+              <!-- Influx Rate Slider -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">Concurrent Influx Traffic</label>
+                  <span id="queue-val-influx" class="font-mono text-pink-400 font-bold">50,000</span>
+                </div>
+                <input id="queue-input-influx" type="range" min="1000" max="100000" step="1000" value="50000" oninput="updateQueueInputs()" class="w-full accent-pink-500">
+                <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                  <span>1k normal</span>
+                  <span>50k flash</span>
+                  <span>100k peak</span>
+                </div>
+              </div>
+
+              <!-- Origin TPS Limit Slider -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">Origin Server Capacity (TPS)</label>
+                  <span id="queue-val-tps" class="font-mono text-white font-bold">500 TPS</span>
+                </div>
+                <input id="queue-input-tps" type="range" min="100" max="2000" step="50" value="500" oninput="updateQueueInputs()" class="w-full accent-pink-500">
+                <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                  <span>100 DB limit</span>
+                  <span>500 standard</span>
+                  <span>2,000 autoscaled</span>
+                </div>
+              </div>
+
+              <!-- Queue Algorithm -->
+              <div>
+                <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Queue Admission Policy</label>
+                <select id="queue-input-algo" onchange="updateQueueInputs()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-pink-500 transition-colors">
+                  <option value="token_bucket_fifo">Token Bucket FIFO (Cryptographic HMAC Passes)</option>
+                  <option value="proof_of_work_filter">Proof of Work Challenge (Aggressive Bot Quarantine)</option>
+                  <option value="adaptive_backpressure">Adaptive Backpressure (Origin CPU Guardrail)</option>
+                </select>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="pt-2 space-y-2">
+                <button onclick="injectSurgeTraffic()" class="w-full py-2.5 px-4 rounded-lg bg-pink-600 hover:bg-pink-500 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm">
+                  <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                  <span>Inject Surge Traffic (+10,000 Users)</span>
+                </button>
+                <button onclick="drainQueueStep()" class="w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors border border-slate-700">
+                  <i data-lucide="arrow-down-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Admit Next Batch to Checkout</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column (7 cols): Telemetry & Output -->
+          <div class="lg:col-span-7 space-y-4">
+            
+            <!-- Real-Time Metric Row -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div class="p-3 rounded-xl border border-slate-800 bg-slate-900/80 text-center">
+                <span class="text-[10px] font-mono text-slate-400 block">Total Queued</span>
+                <span id="queue-metric-queued" class="text-base font-bold text-white font-mono">50,000</span>
+              </div>
+              <div class="p-3 rounded-xl border border-slate-800 bg-slate-900/80 text-center">
+                <span class="text-[10px] font-mono text-slate-400 block">Admitted Rate</span>
+                <span id="queue-metric-tps" class="text-base font-bold text-emerald-400 font-mono">500 / sec</span>
+              </div>
+              <div class="p-3 rounded-xl border border-slate-800 bg-slate-900/80 text-center">
+                <span class="text-[10px] font-mono text-slate-400 block">Drop-off Rate</span>
+                <span id="queue-metric-abandon" class="text-base font-bold text-amber-400 font-mono">4.6%</span>
+              </div>
+              <div class="p-3 rounded-xl border border-slate-800 bg-slate-900/80 text-center">
+                <span class="text-[10px] font-mono text-slate-400 block">Origin CPU</span>
+                <span id="queue-metric-cpu" class="text-base font-bold text-blue-400 font-mono">68%</span>
+              </div>
+            </div>
+
+            <!-- Recruiter Queue Perspective Card -->
+            <div class="p-5 rounded-xl border border-pink-900/50 bg-gradient-to-br from-slate-900 to-slate-950 space-y-4 relative overflow-hidden">
+              <div class="absolute right-0 top-0 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl pointer-events-none"></div>
+              <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span class="text-xs font-bold text-white">Live Consumer Queue Perspective</span>
+                </div>
+                <span id="queue-user-token" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">TK-PASS-84920</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 block font-mono">Your Position in Line:</span>
+                  <span id="queue-user-position" class="text-2xl font-black text-pink-400 font-mono tracking-tight">#1,428</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 block font-mono">Estimated Wait Time:</span>
+                  <span id="queue-user-wait" class="text-2xl font-black text-white font-mono tracking-tight">2m 14s</span>
+                </div>
+              </div>
+
+              <!-- Progress bar -->
+              <div>
+                <div class="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
+                  <span>Progress toward checkout gate</span>
+                  <span>Safe to stay on this page</span>
+                </div>
+                <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                  <div id="queue-user-progress-bar" class="h-full bg-pink-500 transition-all duration-300" style="width: 42%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Telemetry Log -->
+            <div class="rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-800">
+                <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="terminal" class="w-3.5 h-3.5 text-pink-400"></i>
+                  Edge Telemetry Stream
+                </span>
+                <span class="text-[10px] font-mono text-emerald-400">Zero 504 Gateway Timeouts</span>
+              </div>
+              <div id="queue-telemetry-log" class="space-y-1">
+                <!-- Populated via flashqueue.js -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Container: PM Specs & PRD View -->
+      <div id="flashqueue-prd-view" class="hidden space-y-6">
+        
+        <div class="p-6 rounded-xl border border-slate-800 bg-slate-900/40 space-y-6">
+          <div class="border-b border-slate-800 pb-4">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-pink-950 text-pink-400 border border-pink-800 font-mono">PRD SPECIFICATION</span>
+            <h3 class="text-xl font-bold text-white mt-2">High-Concurrency Virtual Waiting Room &amp; Flash Queue Simulator</h3>
+            <p class="text-xs text-slate-400 mt-1">Author: Manav Mate &middot; Associate Product Manager &middot; Status: Ready for Production</p>
+          </div>
+
+          <!-- 1. Problem Statement -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-pink-400">1. Problem Statement &amp; High Concurrency Realities</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Sudden demand surges (concert ticket releases, smartphone flash sales, high-stakes recruitment drives) generate 50,000+ simultaneous incoming HTTP connections. Direct routing to origin servers exhausts database connection pools, triggers lock contention on inventory tables, and produces HTTP 504 Gateway Timeouts. This damages brand trust and allows automated scalper bots to jump ahead of genuine buyers.
+            </p>
+          </div>
+
+          <!-- 2. Token Bucket Architecture -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-pink-400">2. Token Bucket Queue Architecture</h4>
+            <div class="space-y-2 text-xs text-slate-300 font-mono bg-slate-950/60 p-4 rounded-lg border border-slate-800">
+              <p><strong>Edge Throttling:</strong> Requests are held at edge points of presence (Cloudflare Workers / Lambda@Edge) using signed HMAC token cookies.</p>
+              <p><strong>Drain Rate:</strong> Tokens are released to checkout at a deterministic rate calibrated to origin database capacity (500 TPS).</p>
+              <p><strong>Cart Lock TTL:</strong> Admitted users receive a 5-minute checkout lease. If checkout is not completed within 300 seconds, inventory is returned to the pool.</p>
+            </div>
+          </div>
+
+          <!-- 3. Target SLOs & Metrics -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-pink-400">3. North Star Metric &amp; Target SLOs</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Origin 5xx Errors</span>
+                <span class="text-emerald-400 font-bold text-sm">0.00%</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Abandonment Rate</span>
+                <span class="text-pink-400 font-bold text-sm">&le; 5.0%</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Wait Time Accuracy</span>
+                <span class="text-white font-bold text-sm">&plusmn; 5 seconds</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Bot Interception Rate</span>
+                <span class="text-emerald-400 font-bold text-sm">&ge; 98.5%</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- VIEW 7: PRODUCT 6: CREWROSTERING                         -->
+    <!-- ======================================================== -->
+    <section id="view-crewrostering" class="view-panel view-animate hidden space-y-6">
+      
+      <!-- Top Header & Segmented Switcher -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">Product 6</span>
+            <span class="text-xs text-slate-400">Operations PM &middot; Field Logistics &amp; SLAs</span>
+          </div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white">CrewRoster Dashboard</h2>
+          <p class="text-xs sm:text-sm text-slate-400">Field Crew Rostering, Backup Dispatch Buffers &amp; On-Ground SLA Escalation</p>
+        </div>
+
+        <!-- Segmented Control Switcher -->
+        <div class="segmented-control">
+          <button id="crewrostering-btn-live" onclick="switchProductMode('crewrostering', 'live')" class="segmented-btn active">
+            Live Product View
+          </button>
+          <button id="crewrostering-btn-prd" onclick="switchProductMode('crewrostering', 'prd')" class="segmented-btn">
+            PM Specs &amp; PRD
+          </button>
+        </div>
+      </div>
+
+      <!-- Recruiter Interactive Guide Bar -->
+      <div class="recruiter-guide bg-slate-900/80 border border-cyan-900/40 rounded-xl p-3 sm:p-4 text-xs">
+        <div class="flex items-center justify-between mb-2">
+          <span class="font-bold text-cyan-400 flex items-center gap-1.5">
+            <i data-lucide="compass" class="w-3.5 h-3.5"></i>
+            Guided Recruiter Walkthrough (Grounded in NeoManpower Track Record)
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">133 Field Crew &middot; 200+ Projects</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3 text-slate-300">
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span>
+            <span><strong>Select a Venue:</strong> Jio World BKC (120 staff), NESCO Goregaon (85 staff), or Taj Lands End (45 staff).</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span>
+            <span><strong>Handle Incidents:</strong> Trigger 14 morning no-shows, watch SLA countdown, and deploy standby reserves.</span>
+          </div>
+          <div class="flex items-start gap-2 bg-slate-950/50 p-2 rounded border border-slate-800/80">
+            <span class="w-4 h-4 rounded-full bg-cyan-600 text-white flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span>
+            <span><strong>Reconcile Payouts:</strong> Run automated QR check-out audit to verify 100% financial settlement accuracy.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container: Live Product View -->
+      <div id="crewrostering-live-view" class="space-y-6">
+        
+        <!-- 1-Click Scenario Selector -->
+        <div class="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-cyan-500"></span>
+              <span class="text-xs font-bold text-white uppercase tracking-wider">1-Click Operational Scenarios</span>
+            </div>
+            <span class="text-[11px] text-slate-400">Modeled directly on Manav Mate's experience running NeoManpower operations in Mumbai</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <button id="roster-preset-btn-jio_world_morning_rush" onclick="selectRosterScenario('jio_world_morning_rush')" class="text-left p-3 rounded-lg border border-cyan-500 bg-cyan-950/40 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors">Preset A</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-rose-950 text-rose-400 border border-rose-800">14 No-Shows</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Jio World Convention Centre, BKC</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">120 Crew &middot; 15-Min SLA Window Active</div>
+            </button>
+
+            <button id="roster-preset-btn-nesco_exhibitor_surge" onclick="selectRosterScenario('nesco_exhibitor_surge')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-cyan-400 transition-colors">Preset B</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-amber-950 text-amber-400 border border-amber-800">VIP Rebalance</span>
+              </div>
+              <p class="text-[11px] text-slate-300">NESCO Exhibition Centre, Goregaon</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">85 Staff &middot; Emergency Host Redeployment</div>
+            </button>
+
+            <button id="roster-preset-btn-taj_lands_end_night_reconcile" onclick="selectRosterScenario('taj_lands_end_night_reconcile')" class="text-left p-3 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-all group">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-slate-300 group-hover:text-cyan-400 transition-colors">Preset C</span>
+                <span class="text-[10px] px-1.5 py-0.2 rounded font-mono font-bold bg-emerald-950 text-emerald-400 border border-emerald-800">100% Payout Audit</span>
+              </div>
+              <p class="text-[11px] text-slate-300">Taj Lands End, Bandra</p>
+              <div class="text-[10px] font-mono text-slate-400 mt-1">45 Crew &middot; Midnight Hours Reconciliation</div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Main Workspace Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          
+          <!-- Left Column (5 cols): Controls -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="rounded-xl border border-slate-800 bg-slate-900/50 p-5 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="sliders" class="w-4 h-4 text-cyan-400"></i>
+                  <h3 class="text-sm font-bold text-white">Roster &amp; Dispatch Controls</h3>
+                </div>
+                <span class="text-[10px] font-mono text-slate-400">Operations Engine</span>
+              </div>
+
+              <!-- Venue Selector -->
+              <div>
+                <label class="text-[11px] font-bold text-slate-300 uppercase tracking-wider block mb-1">Commercial Venue / Assignment</label>
+                <select id="roster-input-venue" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500 transition-colors">
+                  <option value="jio_world">Jio World Convention Centre, BKC (120 Crew)</option>
+                  <option value="nesco">NESCO Exhibition Centre, Goregaon (85 Crew)</option>
+                  <option value="taj_lands_end">Taj Lands End, Bandra (45 Crew)</option>
+                </select>
+              </div>
+
+              <!-- Standby Reserve Buffer Slider -->
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1">
+                  <label class="font-bold text-slate-300 uppercase tracking-wider text-[11px]">Standby Reserve Crew Buffer</label>
+                  <span id="roster-val-buffer" class="font-mono text-cyan-400 font-bold">18 Standby Crew</span>
+                </div>
+                <input id="roster-input-buffer" type="range" min="5" max="25" step="1" value="15" class="w-full accent-cyan-500">
+                <div class="flex justify-between text-[10px] font-mono text-slate-500 mt-1">
+                  <span>5% lean</span>
+                  <span>15% standard buffer</span>
+                  <span>25% high contingency</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="pt-2 space-y-2">
+                <button onclick="simulateNoShowsTrigger()" class="w-full py-2.5 px-4 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm">
+                  <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
+                  <span>Simulate 14 Staff No-Shows (Start SLA Clock)</span>
+                </button>
+                <button onclick="deployStandbyReserveCrew()" class="w-full py-2.5 px-4 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-sm">
+                  <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
+                  <span>Deploy Standby Reserve Crew to Empty Posts</span>
+                </button>
+                <button onclick="runQrPayoutReconciliation()" class="w-full py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-2 transition-colors border border-slate-700">
+                  <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Run Automated QR Payout Reconciliation</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column (7 cols): Telemetry & Output -->
+          <div class="lg:col-span-7 space-y-4">
+            
+            <!-- SLA Breach Countdown & Metric Summary -->
+            <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div>
+                <span class="text-[10px] font-mono text-slate-400 block uppercase tracking-wider">Contractual SLA Breach Window</span>
+                <div class="flex items-baseline gap-3 mt-1">
+                  <span id="roster-timer-display" class="text-3xl font-black text-white font-mono tracking-tight">11:00</span>
+                  <span id="roster-timer-status" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">SLA Maintained: 0 Breaches</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-4 gap-2 text-center text-xs font-mono">
+                <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block">Required</span>
+                  <span id="roster-metric-required" class="font-bold text-white">120</span>
+                </div>
+                <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block">Checked In</span>
+                  <span id="roster-metric-checked" class="font-bold text-emerald-400">120</span>
+                </div>
+                <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block">Standby</span>
+                  <span id="roster-metric-standby" class="font-bold text-cyan-400">18</span>
+                </div>
+                <div class="p-2 rounded bg-slate-950 border border-slate-800">
+                  <span class="text-[10px] text-slate-400 block">Accuracy</span>
+                  <span id="roster-metric-accuracy" class="font-bold text-emerald-400">100.0%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Zone Heatmap -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-cyan-400"></i>
+                  Venue Zone Postings &amp; Staff Density Matrix
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">15-minute emergency fill threshold</span>
+              </div>
+              <div id="roster-zones-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <!-- Populated via crewrostering.js -->
+              </div>
+            </div>
+
+            <!-- QR Payout Reconciliation Modal / Code Area -->
+            <div class="rounded-xl border border-slate-800 bg-slate-950 p-4 font-mono text-xs">
+              <div class="flex items-center justify-between mb-2 pb-2 border-b border-slate-800">
+                <span class="text-[11px] font-bold text-slate-400">HOURS &amp; VENDOR PAYOUT RECONCILIATION SHEET</span>
+                <span class="text-[10px] text-emerald-400">0% Cost Variance</span>
+              </div>
+              <pre id="roster-reconciliation-log" class="text-[11px] text-slate-300 overflow-x-auto max-h-40 leading-relaxed"></pre>
+            </div>
+
+            <!-- Dispatch Audit Log -->
+            <div class="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="file-text" class="w-3.5 h-3.5 text-cyan-400"></i>
+                  On-Ground Operational Audit Trail
+                </span>
+                <span class="text-[10px] font-mono text-slate-400">Timestamped Logs</span>
+              </div>
+              <div id="roster-dispatch-log" class="space-y-1">
+                <!-- Populated via crewrostering.js -->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Container: PM Specs & PRD View -->
+      <div id="crewrostering-prd-view" class="hidden space-y-6">
+        
+        <div class="p-6 rounded-xl border border-slate-800 bg-slate-900/40 space-y-6">
+          <div class="border-b border-slate-800 pb-4">
+            <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono">OPERATIONS PRD &amp; SPECIFICATION</span>
+            <h3 class="text-xl font-bold text-white mt-2">Field Crew Rostering &amp; On-Ground SLA Escalation Dashboard</h3>
+            <p class="text-xs text-slate-400 mt-1">Author: Manav Mate &middot; Founder &amp; Operations Lead (NeoManpower) &middot; Status: In Production</p>
+          </div>
+
+          <!-- 1. Operational Problem Statement -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-cyan-400">1. Problem Statement &amp; Real-World Labor Logistics</h4>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Managing large frontline crews (up to 133 field personnel across exhibitions, convention centres, and commercial projects in Mumbai) is subject to high morning no-show rates (15% to 25%) due to transit delays and gig labor turnover. B2B enterprise clients enforce contractual penalties of up to ₹50,000 for unstaffed entry turnstiles, badge counters, or VIP lounges after 08:15 AM. Traditional manual phone calls fail to redeploy standby labor in time.
+            </p>
+          </div>
+
+          <!-- 2. Standby Buffer Economics -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-cyan-400">2. Standby Reserve Buffer Calculus</h4>
+            <div class="space-y-2 text-xs text-slate-300 font-mono bg-slate-950/60 p-4 rounded-lg border border-slate-800">
+              <p><strong>Standby Ratio:</strong> Maintain a 15% standby reserve buffer on-site for assignments exceeding 50 personnel.</p>
+              <p><strong>Cost Calculus:</strong> 15 idle standby personnel at ₹1,200/day = ₹18,000 contingency cost, compared against a single ₹50,000 SLA penalty plus reputational contract cancellation risk.</p>
+              <p><strong>Emergency Window:</strong> 15-minute strict countdown timer from 08:00 AM turnstile check-in gate cutoff to standby deployment.</p>
+            </div>
+          </div>
+
+          <!-- 3. Target SLOs & Track Record -->
+          <div class="space-y-2">
+            <h4 class="text-sm font-bold text-white uppercase tracking-wider text-cyan-400">3. North Star Metric &amp; Verified Track Record</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Contractual SLA Breaches</span>
+                <span class="text-emerald-400 font-bold text-sm">0 Breaches (200+ Projects)</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Peak Crew Managed</span>
+                <span class="text-white font-bold text-sm">133 Personnel</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Standby Dispatch Fill</span>
+                <span class="text-cyan-400 font-bold text-sm">&le; 12 minutes</span>
+              </div>
+              <div class="p-3 rounded bg-slate-950 border border-slate-800">
+                <span class="text-slate-400 block text-[10px]">Financial Payout Accuracy</span>
+                <span class="text-emerald-400 font-bold text-sm">100.0% Audited</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
 
     </section>
 

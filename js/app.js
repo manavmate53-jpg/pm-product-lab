@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Navigation Function
 function navigateTo(targetView) {
-  const views = ['hub', 'verishield', 'automatch', 'evalguard'];
+  const views = ['hub', 'verishield', 'automatch', 'evalguard', 'payrouter', 'flashqueue', 'crewrostering'];
   if (!views.includes(targetView)) {
     targetView = 'hub';
   }
@@ -55,7 +55,7 @@ function navigateTo(targetView) {
   // Scroll to top of content
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  // Re-render Lucide Icons for dynamic content
+  // Re-render Lucide Icons for updated content
   if (window.lucide) {
     window.lucide.createIcons();
   }
@@ -72,7 +72,7 @@ function navigateTo(targetView) {
 // Handle Hash Navigation
 function handleHashNavigation() {
   const hash = window.location.hash.replace('#', '').trim();
-  if (['hub', 'verishield', 'automatch', 'evalguard'].includes(hash)) {
+  if (['hub', 'verishield', 'automatch', 'evalguard', 'payrouter', 'flashqueue', 'crewrostering'].includes(hash)) {
     navigateTo(hash);
   } else {
     navigateTo('hub');

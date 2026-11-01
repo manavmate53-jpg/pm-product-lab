@@ -1,0 +1,86 @@
+{
+  "venues": [
+    {
+      "id": "jio_world",
+      "name": "Jio World Convention Centre, BKC Mumbai",
+      "capacity": "Large Multi-Hall Expo & Summit",
+      "typicalCrew": 120,
+      "slaThresholdMins": 15
+    },
+    {
+      "id": "nesco",
+      "name": "NESCO Exhibition Centre, Goregaon Mumbai",
+      "capacity": "Industrial Trade Fair & 6 Corporate Pavilions",
+      "typicalCrew": 85,
+      "slaThresholdMins": 20
+    },
+    {
+      "id": "taj_lands_end",
+      "name": "Taj Lands End, Bandra Mumbai",
+      "capacity": "Executive Gala & Midnight Breakdown",
+      "typicalCrew": 45,
+      "slaThresholdMins": 10
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "jio_world_morning_rush",
+      "title": "Jio World BKC: 120 Staff Morning Shift with 14 Sudden No-Shows",
+      "subtitle": "08:00 AM check-in gate detects 14 unconfirmed slots; 15-minute client SLA countdown begins; standby buffer auto-dispatches reserve crew in 11 minutes.",
+      "venueId": "jio_world",
+      "totalScheduled": 120,
+      "zones": [
+        { "name": "Registration & Badge Desks", "required": 32, "checkedIn": 24, "status": "critical" },
+        { "name": "Hall Perimeter & Crowd Flow", "required": 40, "checkedIn": 36, "status": "warning" },
+        { "name": "VIP Lounge & Speaker Hospitality", "required": 24, "checkedIn": 24, "status": "optimal" },
+        { "name": "Loading Bay & Material Logistics", "required": 24, "checkedIn": 22, "status": "warning" }
+      ],
+      "standbyBufferAvailable": 18,
+      "initialNoShows": 14,
+      "slaBreachRisk": "High",
+      "escalationLevel": "Level 1 Supervisor",
+      "recommendedAction": "Deploy 14 standby personnel immediately to Registration (8) and Perimeter (4) and Bay (2)",
+      "resolutionTimeMins": 11,
+      "payoutAccuracyPct": 100.0
+    },
+    {
+      "id": "nesco_exhibitor_surge",
+      "title": "NESCO Goregaon: Mid-Day Corporate Exhibitor VIP Rebalance",
+      "subtitle": "Exhibitor #4 requests 6 emergency bilingual hosts for visiting delegation; optimizer shifts buffer from low-density perimeter in 8 minutes with zero SLA breach.",
+      "venueId": "nesco",
+      "totalScheduled": 85,
+      "zones": [
+        { "name": "Main Entrance Turnstiles", "required": 20, "checkedIn": 20, "status": "optimal" },
+        { "name": "Corporate Pavilions 1-3", "required": 25, "checkedIn": 25, "status": "optimal" },
+        { "name": "International Pavilion 4", "required": 15, "checkedIn": 15, "status": "critical" },
+        { "name": "General Concourse Buffer", "required": 25, "checkedIn": 25, "status": "optimal" }
+      ],
+      "standbyBufferAvailable": 12,
+      "initialNoShows": 0,
+      "slaBreachRisk": "Moderate",
+      "escalationLevel": "Level 2 Operations Lead",
+      "recommendedAction": "Rebalance 6 concourse personnel to Pavilion 4; activate 6 standby personnel for concourse backfill",
+      "resolutionTimeMins": 8,
+      "payoutAccuracyPct": 100.0
+    },
+    {
+      "id": "taj_lands_end_night_reconcile",
+      "title": "Taj Lands End: Midnight Breakdown & Payout Reconciliation",
+      "subtitle": "Event wrap at 01:30 AM; QR check-out logs actual hours against shift contracts; identifies 3 overtime exceptions; generates verified 100% accurate vendor settlement sheet.",
+      "venueId": "taj_lands_end",
+      "totalScheduled": 45,
+      "zones": [
+        { "name": "Ballroom Teardown & AV Assist", "required": 20, "checkedIn": 20, "status": "optimal" },
+        { "name": "Valet & Guest Exit Escort", "required": 15, "checkedIn": 15, "status": "optimal" },
+        { "name": "Inventory & Asset Return", "required": 10, "checkedIn": 10, "status": "optimal" }
+      ],
+      "standbyBufferAvailable": 5,
+      "initialNoShows": 0,
+      "slaBreachRisk": "None",
+      "escalationLevel": "Operations Lead Sign-Off",
+      "recommendedAction": "Run automated QR hours reconciliation; approve 3 verified 1.5-hour overtime slots; export instant payout voucher",
+      "resolutionTimeMins": 4,
+      "payoutAccuracyPct": 100.0
+    }
+  ]
+}

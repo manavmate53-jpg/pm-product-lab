@@ -4,13 +4,13 @@
 [![Portfolio](https://img.shields.io/badge/Portfolio-Manav%20Mate-emerald?style=flat)](https://manavmate53-jpg.github.io/portfolio/#hero)
 [![License](https://img.shields.io/badge/Architecture-100%25%20Client--Side%20Static-purple?style=flat)](#zero-dependency-client-side-architecture)
 
-An interactive, production-grade Product Management Portfolio Lab built for evaluating early-career PM candidates in under 60 seconds. Instead of static slide decks, this suite lets hiring managers and recruiters interact with 3 simulated software products, inspect live JSON payloads, run PostgreSQL queries, and review full PRD specifications.
+An interactive, production-grade Product Management Portfolio Lab built for evaluating early-career PM candidates in under 60 seconds. Instead of static slide decks, this suite lets hiring managers and recruiters interact with 6 simulated software products, inspect live JSON payloads, run PostgreSQL queries, and review full PRD specifications.
 
 Live URL: **https://manavmate53-jpg.github.io/pm-product-lab/**
 
 ---
 
-## The 3 Interactive Products
+## The 6 Interactive Products
 
 ### 1. VeriShield: B2B Merchant KYC & Document Risk Engine
 *Target Domains: Fintech, RegTech, Risk Operations (HSBC, IDfy, Equifax, Firmway)*
@@ -58,6 +58,52 @@ Live URL: **https://manavmate53-jpg.github.io/pm-product-lab/**
 
 ---
 
+### 4. PayRouter Engine: Multi-Gateway Payment Router & Instant Refund Reconciliation
+*Target Domains: Fintech Rails, Payment Aggregators (Razorpay, Cashfree, Juspay, Pine Labs)*
+
+* **The Problem:** 4% to 8% checkout transaction drop-offs caused by unexpected bank switch downtime, high merchant discount rate (MDR) surcharges, and duplicate payout race conditions during customer refund disputes.
+* **The Solution:** Real-time health watchdog routing across Cashfree, Razorpay, Stripe, and PayU with sub-200ms cascade failover, fee/MDR optimization, and automated refund idempotency locking.
+* **Interactive Features:**
+  * 3 Clickable Payment Scenarios: UPI Flash HDFC Spike, International Corporate Card Invoice, and Duplicate Charge Instant Refund.
+  * Live Multi-Gateway Health Grid with P95 latency and success rate monitors.
+  * Waterfall Execution Timeline tracking payment intent through risk checks and failover triggers.
+  * Real-time MDR fee savings calculator (15 to 45 bps discount).
+  * Live JSON Webhook and Idempotency Key Lock inspector.
+* **Key PM Artifact:** Technical PRD covering cascading state machines, ISO-8583 payment contracts, idempotency lock specifications, and 98.2%+ success rate SLOs.
+
+---
+
+### 5. FlashQueue Simulator: High-Concurrency Virtual Waiting Room & Bot Shield
+*Target Domains: Infrastructure, High-Traffic Platforms (BookMyShow, Flipkart, IRCTC, Swiggy)*
+
+* **The Problem:** Sudden traffic surges (concert drops, phone flash sales) overwhelm origin servers, triggering database connection pool exhaustion and HTTP 504 Gateway Timeouts.
+* **The Solution:** Edge token bucket buffer that smoothly meters traffic admission to origin servers while fingerprint velocity heuristics isolate scalper bot waves into Captcha rooms.
+* **Interactive Features:**
+  * 3 Concurrency Presets: 50,000 Stadium Concert Surge, Flagship Smartphone Bot Wave, and Origin Database Saturation.
+  * Interactive Traffic Influx (1k to 100k) and Origin TPS Capacity (100 to 2,000 TPS) sliders.
+  * Live Consumer Queue Perspective Card showing live queue position (#1,428), estimated wait time (2m 14s), and cryptographic HMAC token pass.
+  * Real-time metrics counters for Queued Users, Admitted Rate, Abandonment Rate, and Origin CPU load.
+  * Simulated Surge Injection (+10,000 users) and Step Drain queue buttons.
+* **Key PM Artifact:** Comprehensive PRD specifying token bucket algorithms, Cloudflare Workers / Lambda@Edge integration, cart lock TTL rules, and zero-downtime origin protection.
+
+---
+
+### 6. CrewRoster Dashboard: Field Crew Rostering & On-Ground SLA Escalation
+*Target Domains: Operations PM, Labor Logistics (Urban Company, Zepto, Porter, Shadowfax)*
+
+* **The Problem:** Managing on-ground frontline teams across multi-venue events suffers from 15% to 25% morning staff no-shows, manual shift check-in bottlenecks, and steep client contractual penalties for unmanned posts.
+* **Grounded in NeoManpower Track Record:** Modeled directly on Manav Mate's experience as Founder & Operations Lead running 200+ commercial projects and managing teams of up to 133 personnel across Mumbai venues with zero SLA breaches.
+* **Interactive Features:**
+  * 3 Real Mumbai Venue Scenarios: Jio World Convention Centre BKC (120 crew), NESCO Goregaon (85 crew), and Taj Lands End Bandra (45 crew).
+  * Interactive Standby Reserve Crew Buffer slider (5% to 25%).
+  * Simulated 14 Staff No-Shows Incident Trigger activating the 15-minute emergency SLA countdown timer.
+  * Standby Crew Dispatch button automatically backfilling critical venue deficits in under 12 minutes.
+  * Zone Staff Density Heatmap covering Registration Desks, Hall Perimeters, VIP Hospitality, and Loading Bays.
+  * Automated QR Hours & Vendor Payout Reconciliation audit tool verifying 100% financial accuracy with zero cost variance.
+* **Key PM Artifact:** Operations PRD covering reserve labor buffer economics, geo-fenced QR check-in protocols, incident escalation matrices, and 100% SLA compliance benchmarks.
+
+---
+
 ## Zero-Dependency Client-Side Architecture
 
 To guarantee 100% uptime on static hosting platforms like GitHub Pages, this project relies on zero backend servers and zero external API keys:
@@ -66,7 +112,7 @@ To guarantee 100% uptime on static hosting platforms like GitHub Pages, this pro
 * **Styling & Design System:** Tailwind CSS via CDN with customized dark enterprise SaaS tokens.
 * **Icons & Visuals:** Lucide Icons via CDN for crisp iconography.
 * **Data Visualization:** Chart.js via CDN for interactive A/B test conversion funnels.
-* **Logic & Pipelines:** Modular Vanilla ES6 JavaScript (`verishield.js`, `automatch.js`, `evalguard.js`, `app.js`).
+* **Logic & Pipelines:** Modular Vanilla ES6 JavaScript (`verishield.js`, `automatch.js`, `evalguard.js`, `payrouter.js`, `flashqueue.js`, `crewrostering.js`, `app.js`).
 * **Data Layer:** Rich local JSON datasets for instant loading with zero network latency.
 
 ---
