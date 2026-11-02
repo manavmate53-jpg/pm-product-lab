@@ -1,5 +1,5 @@
 // Product 4: PayRouter Multi-Gateway Payment Router & Instant Refund Engine
-// Dynamic routing, bank health degradation cascade, and cryptographic refund idempotency
+// Automated routing, bank health degradation cascade, and cryptographic refund idempotency
 
 let prGateways = [];
 let prPresets = [];

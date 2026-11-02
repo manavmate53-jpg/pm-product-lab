@@ -164,7 +164,7 @@ Response (200 OK):
       },
       {
         heading: "2. Solution Architecture",
-        body: "PayRouter implements dynamic smart cascade routing across Cashfree, Razorpay, Stripe, and PayU. When a gateway's latency exceeds 800 milliseconds or error rates exceed 5%, the router auto-cascades the transaction to the optimal backup rail. Cross-border cards are routed to Stripe for international BIN optimization. The instant refund engine uses cryptographic idempotency keys to verify ledger transactions and prevent double debits."
+        body: "PayRouter implements automated smart cascade routing across Cashfree, Razorpay, Stripe, and PayU. When a gateway's latency exceeds 800 milliseconds or error rates exceed 5%, the router auto-cascades the transaction to the optimal backup rail. Cross-border cards are routed to Stripe for international BIN optimization. The instant refund engine uses cryptographic idempotency keys to verify ledger transactions and prevent double debits."
       },
       {
         heading: "3. Target Metrics & Guardrails",
@@ -239,7 +239,7 @@ Response (200 OK):
   "total_in_queue": 50000,
   "estimated_wait_seconds": 134,
   "token_pass": "TK-PASS-44120",
-  "origin_checkout_unlocked": false
+  "origin_checkout_granted": false
 }`
       },
       {
@@ -340,3 +340,4 @@ window.closeProductSpec = function() {
 function escapeHtml(str) {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
+

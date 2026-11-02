@@ -7,10 +7,10 @@
   <meta name="description" content="Product Management Interactive Lab: Client-side simulations of fintech risk verification, marketplace telemetry, AI evaluations, payment orchestration, traffic queueing, and field operations.">
   <title>Manav Mate | Product Engineering Lab</title>
 
-  <!-- Typography: Host Grotesk & Atkinson Hyperlegible Mono -->
+  <!-- Typography: Apple SF Pro System & Fallbacks -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;500&family=Host+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,36 +20,18 @@
       theme: {
         extend: {
           colors: {
-            paper: {
-              DEFAULT: 'var(--color-paper)',
-              2: 'var(--color-paper-2)',
-              3: 'var(--color-paper-3)'
-            },
-            ink: {
-              DEFAULT: 'var(--color-ink)',
-              2: 'var(--color-ink-2)',
-              muted: 'var(--color-muted)'
-            },
-            rule: {
-              DEFAULT: 'var(--color-rule)',
-              2: 'var(--color-rule-2)'
-            },
-            accent: {
-              DEFAULT: 'var(--color-accent)',
-              ink: 'var(--color-accent-ink)',
-              soft: 'var(--color-accent-soft)'
-            },
-            cool: {
-              DEFAULT: 'var(--color-cool)',
-              soft: 'var(--color-cool-soft)'
-            },
-            ok: {
-              DEFAULT: 'var(--color-ok)',
-              soft: 'var(--color-ok-soft)'
-            },
-            bad: {
-              DEFAULT: 'var(--color-bad)',
-              soft: 'var(--color-bad-soft)'
+            apple: {
+              white: '#ffffff',
+              mist: '#f5f5f7',
+              frost: '#fafafc',
+              silver: '#d6d6d6',
+              gray: '#e6e6e8',
+              ink: '#1d1d1f',
+              slate: '#707070',
+              steel: '#86868b',
+              blue: '#0066cc',
+              pricing: '#0071e3',
+              orange: '#b64400'
             }
           }
         }
@@ -63,23 +45,23 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-paper text-ink min-h-screen flex flex-col">
+<body class="bg-[#f5f5f7] text-[#1d1d1f] min-h-screen flex flex-col font-sans antialiased selection:bg-[#0071e3]/15">
 
-  <!-- Header Navigation -->
-  <header class="border-b border-rule bg-paper sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+  <!-- Apple Global Navigation: 44px height, hairline silver edge, frosted blur -->
+  <header class="border-b border-[#e6e6e8] bg-white/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-11 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <button onclick="navigateTo('hub')" class="btn-brand flex items-center space-x-2 text-left whitespace-nowrap">
-          <span class="w-7 h-7 rounded border border-rule-2 bg-paper-2 flex items-center justify-center font-medium text-xs text-accent">MM</span>
-          <div>
-            <div class="text-xs font-medium text-ink">Manav Mate</div>
-            <div class="text-[11px] text-muted">Product Engineering Lab</div>
+          <span class="w-6 h-6 rounded-full bg-[#1d1d1f] text-white flex items-center justify-center font-semibold text-[11px]">M</span>
+          <div class="leading-tight">
+            <span class="text-xs font-semibold text-[#1d1d1f]">Manav Mate</span>
+            <span class="text-[11px] text-[#707070] ml-1.5 hidden sm:inline">Product Lab</span>
           </div>
         </button>
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="hidden lg:flex items-center space-x-1 border border-rule bg-paper-3 p-1 rounded">
+      <nav class="hidden lg:flex items-center space-x-1 bg-[#e6e6e8]/60 p-0.5 rounded-full border border-[#d6d6d6]">
         <button id="nav-hub" onclick="navigateTo('hub')" class="nav-tab active">Hub</button>
         <button id="nav-verishield" onclick="navigateTo('verishield')" class="nav-tab">1. VeriShield</button>
         <button id="nav-automatch" onclick="navigateTo('automatch')" class="nav-tab">2. AutoMatch</button>
@@ -91,14 +73,14 @@
 
       <!-- External Links -->
       <div class="flex items-center space-x-2">
-        <a href="https://manavmate53-jpg.github.io/portfolio/" target="_blank" rel="noopener noreferrer" class="btn btn-quiet text-xs">
-          Main Portfolio
+        <a href="https://manavmate53-jpg.github.io/portfolio/" target="_blank" rel="noopener noreferrer" class="btn btn-outline text-xs">
+          Executive Portfolio &rarr;
         </a>
       </div>
     </div>
 
     <!-- Mobile Navigation Sub-bar -->
-    <div class="lg:hidden flex items-center overflow-x-auto whitespace-nowrap space-x-1 border-t border-rule bg-paper-3 p-1.5 text-xs">
+    <div class="lg:hidden flex items-center overflow-x-auto whitespace-nowrap space-x-1 border-t border-[#e6e6e8] bg-white px-3 py-1.5 text-xs">
       <button id="mobile-nav-hub" onclick="navigateTo('hub')" class="nav-tab active">Hub</button>
       <button id="mobile-nav-verishield" onclick="navigateTo('verishield')" class="nav-tab">1. VeriShield</button>
       <button id="mobile-nav-automatch" onclick="navigateTo('automatch')" class="nav-tab">2. AutoMatch</button>
@@ -110,148 +92,229 @@
   </header>
 
   <!-- Main Content Area -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8">
 
     <!-- VIEW 1: HUB -->
-    <section id="view-hub" class="space-y-6">
-      <div class="panel p-6">
-        <h1 class="text-xl sm:text-2xl font-medium text-ink">Product Engineering Interactive Lab</h1>
-        <p class="text-xs sm:text-sm text-ink-2 mt-2 max-w-3xl leading-relaxed">
-          Six deterministic product engineering workspaces with live telemetry and technical specifications.
+    <section id="view-hub" class="space-y-8">
+      
+      <!-- Apple Full-Bleed White Gallery Hero Stage -->
+      <div class="apple-hero-stage">
+        <span class="apple-kicker">Interactive Product Engineering Lab</span>
+        <h1 class="apple-display-title">Deterministic software systems designed for scale.</h1>
+        <p class="apple-lead-text">
+          Six interactive client-side workspaces modeling fintech verification pipelines, marketplace search algorithms, LLM guardrails, automated payment routing failovers, high-concurrency waiting rooms, and field crew operations.
         </p>
-        <div class="flex flex-wrap gap-2 mt-4 text-xs text-muted">
-          <span class="chip">Client-side execution</span>
-          <span class="chip">Zero external API dependencies</span>
-          <span class="chip">Production PRDs included</span>
+        <div class="flex flex-wrap items-center justify-center gap-3 mt-6">
+          <button onclick="document.getElementById('hub-showcase-grid').scrollIntoView({behavior: 'smooth'})" class="btn btn-pricing">
+            Explore 6 Workspaces
+          </button>
+          <a href="https://github.com/manavmate53-jpg/pm-product-lab" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+            GitHub Source
+          </a>
+          <a href="https://manavmate53-jpg.github.io/portfolio/" target="_blank" rel="noopener noreferrer" class="btn btn-quiet">
+            Executive Portfolio &rarr;
+          </a>
+        </div>
+        
+        <!-- Live Telemetry Highlights -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10 pt-8 border-t border-[#d6d6d6] text-left">
+          <div class="p-3 bg-[#f5f5f7] rounded-2xl">
+            <div class="text-[11px] font-medium text-[#707070] uppercase tracking-wider">Architecture</div>
+            <div class="text-base font-semibold text-[#1d1d1f] mt-0.5">100% Client-Side</div>
+            <div class="text-[12px] text-[#707070] mt-0.5">Zero external API latency</div>
+          </div>
+          <div class="p-3 bg-[#f5f5f7] rounded-2xl">
+            <div class="text-[11px] font-medium text-[#707070] uppercase tracking-wider">Simulations</div>
+            <div class="text-base font-semibold text-[#1d1d1f] mt-0.5">6 Core Engines</div>
+            <div class="text-[12px] text-[#707070] mt-0.5">Fintech, AI, Ops &amp; Queues</div>
+          </div>
+          <div class="p-3 bg-[#f5f5f7] rounded-2xl">
+            <div class="text-[11px] font-medium text-[#707070] uppercase tracking-wider">Documentation</div>
+            <div class="text-base font-semibold text-[#1d1d1f] mt-0.5">Full PM PRDs</div>
+            <div class="text-[12px] text-[#707070] mt-0.5">Schemas &amp; Technical Specs</div>
+          </div>
+          <div class="p-3 bg-[#f5f5f7] rounded-2xl">
+            <div class="text-[11px] font-medium text-[#707070] uppercase tracking-wider">Verification</div>
+            <div class="text-base font-semibold text-[#1d1d1f] mt-0.5">Deterministic State</div>
+            <div class="text-[12px] text-[#707070] mt-0.5">1-click audit presets</div>
+          </div>
         </div>
       </div>
 
-      <!-- 6 Product Showcase Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Card 1: VeriShield -->
-        <div class="panel p-5 flex flex-col justify-between">
+      <!-- Feature Highlights Stage with 6 Cards -->
+      <div id="hub-showcase-grid" class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 px-1">
           <div>
-            <div class="flex items-start justify-between">
-              <h2 class="text-base font-medium text-ink">VeriShield</h2>
-              <span class="chip chip-cool">Fintech risk ops</span>
-            </div>
-            <p class="text-xs text-muted mt-1">B2B KYC and document verification engine</p>
-            <p class="text-xs text-ink-2 mt-3 leading-relaxed">
-              Validates Indian GSTIN and PAN checksums, computes Levenshtein entity name similarity, and routes automated approvals.
-            </p>
-            <div class="mt-4 pt-3 border-t border-rule text-xs text-muted space-y-1">
-              <div>Target: <span class="text-ink">HSBC, IDfy, Razorpay</span></div>
-              <div>Artifact: <span class="text-accent">PRD and API Contract</span></div>
-            </div>
+            <h2 class="text-2xl font-semibold text-[#1d1d1f] tracking-tight">Interactive Workspaces</h2>
+            <p class="text-sm text-[#707070] mt-1">Select any workspace to test live telemetry, mutate parameters, or inspect technical PRDs.</p>
           </div>
-          <button onclick="navigateTo('verishield')" class="mt-5 btn btn-quiet w-full text-xs">
-            Open VeriShield Workspace
-          </button>
+          <span class="text-xs font-semibold text-[#0066cc] self-start sm:self-auto">All systems operational &bull; 6/6 online</span>
         </div>
 
-        <!-- Card 2: AutoMatch -->
-        <div class="panel p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-start justify-between">
-              <h2 class="text-base font-medium text-ink">AutoMatch</h2>
-              <span class="chip chip-cool">Marketplace search</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <!-- Card 1: VeriShield -->
+          <div class="apple-card">
+            <div>
+              <div class="flex items-start justify-between">
+                <span class="text-[11px] font-semibold text-[#707070] uppercase tracking-wider">01 / Fintech Risk Ops</span>
+                <span class="chip chip-cool text-[11px]">Live Engine</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#1d1d1f] mt-2">VeriShield</h3>
+              <p class="text-xs font-medium text-[#707070] mt-0.5">B2B KYC and document verification engine</p>
+              <p class="text-xs text-[#1d1d1f] mt-3 leading-relaxed">
+                Validates Indian GSTIN and PAN checksums, computes Levenshtein entity name similarity, and routes automated approvals.
+              </p>
+              <div class="mt-4 pt-3 border-t border-[#d6d6d6] text-xs text-[#707070] space-y-1">
+                <div>Target: <span class="text-[#1d1d1f] font-medium">HSBC, IDfy, Razorpay</span></div>
+                <div>Artifact: <span class="text-[#0066cc] font-medium">PRD and API Contract</span></div>
+              </div>
             </div>
-            <p class="text-xs text-muted mt-1">Discovery matcher and conversion telemetry</p>
-            <p class="text-xs text-ink-2 mt-3 leading-relaxed">
-              A/B testing framework comparing legacy filters against a 3-step recommendation quiz with live funnel event telemetry.
-            </p>
-            <div class="mt-4 pt-3 border-t border-rule text-xs text-muted space-y-1">
-              <div>Target: <span class="text-ink">Cars24, Spinny, CarDekho</span></div>
-              <div>Artifact: <span class="text-accent">Funnel Analytics and PRD</span></div>
+            <div class="flex items-center gap-2 mt-5">
+              <button onclick="navigateTo('verishield')" class="btn btn-pricing flex-1 text-xs">
+                Open Workspace
+              </button>
+              <button onclick="openProductSpec('verishield')" class="btn btn-outline text-xs">
+                Spec
+              </button>
             </div>
           </div>
-          <button onclick="navigateTo('automatch')" class="mt-5 btn btn-quiet w-full text-xs">
-            Open AutoMatch Workspace
-          </button>
-        </div>
 
-        <!-- Card 3: EvalGuard -->
-        <div class="panel p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-start justify-between">
-              <h2 class="text-base font-medium text-ink">EvalGuard</h2>
-              <span class="chip chip-cool">AI evaluation</span>
+          <!-- Card 2: AutoMatch -->
+          <div class="apple-card">
+            <div>
+              <div class="flex items-start justify-between">
+                <span class="text-[11px] font-semibold text-[#707070] uppercase tracking-wider">02 / Marketplace Search</span>
+                <span class="chip chip-cool text-[11px]">Live Engine</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#1d1d1f] mt-2">AutoMatch IQ</h3>
+              <p class="text-xs font-medium text-[#707070] mt-0.5">Discovery matcher and conversion telemetry</p>
+              <p class="text-xs text-[#1d1d1f] mt-3 leading-relaxed">
+                A/B testing framework comparing legacy filters against a 3-step recommendation quiz with live funnel event telemetry.
+              </p>
+              <div class="mt-4 pt-3 border-t border-[#d6d6d6] text-xs text-[#707070] space-y-1">
+                <div>Target: <span class="text-[#1d1d1f] font-medium">Cars24, Spinny, CarDekho</span></div>
+                <div>Artifact: <span class="text-[#0066cc] font-medium">Funnel Analytics and PRD</span></div>
+              </div>
             </div>
-            <p class="text-xs text-muted mt-1">LLM regression guardrail and benchmark suite</p>
-            <p class="text-xs text-ink-2 mt-3 leading-relaxed">
-              Automated 20-case golden dataset test runner evaluating PII masking, prompt injection defense, and schema validation.
-            </p>
-            <div class="mt-4 pt-3 border-t border-rule text-xs text-muted space-y-1">
-              <div>Target: <span class="text-ink">Yellow.ai, Sarvam AI, Gupshup</span></div>
-              <div>Artifact: <span class="text-accent">Eval Rubric and Golden Dataset</span></div>
+            <div class="flex items-center gap-2 mt-5">
+              <button onclick="navigateTo('automatch')" class="btn btn-pricing flex-1 text-xs">
+                Open Workspace
+              </button>
+              <button onclick="openProductSpec('automatch')" class="btn btn-outline text-xs">
+                Spec
+              </button>
             </div>
           </div>
-          <button onclick="navigateTo('evalguard')" class="mt-5 btn btn-quiet w-full text-xs">
-            Open EvalGuard Workspace
-          </button>
-        </div>
 
-        <!-- Card 4: PayRouter -->
-        <div class="panel p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-start justify-between">
-              <h2 class="text-base font-medium text-ink">PayRouter</h2>
-              <span class="chip chip-cool">Payment orchestration</span>
+          <!-- Card 3: EvalGuard -->
+          <div class="apple-card">
+            <div>
+              <div class="flex items-start justify-between">
+                <span class="text-[11px] font-semibold text-[#707070] uppercase tracking-wider">03 / AI Evaluation</span>
+                <span class="chip chip-cool text-[11px]">Live Engine</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#1d1d1f] mt-2">EvalGuard AI</h3>
+              <p class="text-xs font-medium text-[#707070] mt-0.5">LLM regression guardrail and benchmark suite</p>
+              <p class="text-xs text-[#1d1d1f] mt-3 leading-relaxed">
+                Automated 20-case golden dataset test runner evaluating PII masking, prompt injection defense, and schema validation.
+              </p>
+              <div class="mt-4 pt-3 border-t border-[#d6d6d6] text-xs text-[#707070] space-y-1">
+                <div>Target: <span class="text-[#1d1d1f] font-medium">Yellow.ai, Sarvam AI, Gupshup</span></div>
+                <div>Artifact: <span class="text-[#0066cc] font-medium">Eval Rubric and Golden Dataset</span></div>
+              </div>
             </div>
-            <p class="text-xs text-muted mt-1">Multi-gateway router and instant refund reconciliation</p>
-            <p class="text-xs text-ink-2 mt-3 leading-relaxed">
-              Dynamic cascade failover across Cashfree, Razorpay, and Stripe with cryptographic refund idempotency locks.
-            </p>
-            <div class="mt-4 pt-3 border-t border-rule text-xs text-muted space-y-1">
-              <div>Target: <span class="text-ink">Cashfree, Razorpay, Pine Labs</span></div>
-              <div>Artifact: <span class="text-accent">Routing Architecture and PRD</span></div>
+            <div class="flex items-center gap-2 mt-5">
+              <button onclick="navigateTo('evalguard')" class="btn btn-pricing flex-1 text-xs">
+                Open Workspace
+              </button>
+              <button onclick="openProductSpec('evalguard')" class="btn btn-outline text-xs">
+                Spec
+              </button>
             </div>
           </div>
-          <button onclick="navigateTo('payrouter')" class="mt-5 btn btn-quiet w-full text-xs">
-            Open PayRouter Workspace
-          </button>
-        </div>
 
-        <!-- Card 5: FlashQueue -->
-        <div class="panel p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-start justify-between">
-              <h2 class="text-base font-medium text-ink">FlashQueue</h2>
-              <span class="chip chip-cool">Traffic concurrency</span>
+          <!-- Card 4: PayRouter -->
+          <div class="apple-card">
+            <div>
+              <div class="flex items-start justify-between">
+                <span class="text-[11px] font-semibold text-[#707070] uppercase tracking-wider">04 / Payment Rails</span>
+                <span class="chip chip-cool text-[11px]">Live Engine</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#1d1d1f] mt-2">PayRouter</h3>
+              <p class="text-xs font-medium text-[#707070] mt-0.5">Multi-gateway router and refund reconciliation</p>
+              <p class="text-xs text-[#1d1d1f] mt-3 leading-relaxed">
+                Automated cascade failover across Cashfree, Razorpay, and Stripe with cryptographic refund idempotency locks.
+              </p>
+              <div class="mt-4 pt-3 border-t border-[#d6d6d6] text-xs text-[#707070] space-y-1">
+                <div>Target: <span class="text-[#1d1d1f] font-medium">Cashfree, Razorpay, Pine Labs</span></div>
+                <div>Artifact: <span class="text-[#0066cc] font-medium">Routing Architecture and PRD</span></div>
+              </div>
             </div>
-            <p class="text-xs text-muted mt-1">Virtual waiting room and flash queue simulator</p>
-            <p class="text-xs text-ink-2 mt-3 leading-relaxed">
-              Token-bucket traffic shaping buffering 50,000 users at the edge with bot heuristic quarantine and zero 504 errors.
-            </p>
-            <div class="mt-4 pt-3 border-t border-rule text-xs text-muted space-y-1">
-              <div>Target: <span class="text-ink">BookMyShow, Zomato, Flipkart</span></div>
-              <div>Artifact: <span class="text-accent">Queue Design and Capacity Model</span></div>
+            <div class="flex items-center gap-2 mt-5">
+              <button onclick="navigateTo('payrouter')" class="btn btn-pricing flex-1 text-xs">
+                Open Workspace
+              </button>
+              <button onclick="openProductSpec('payrouter')" class="btn btn-outline text-xs">
+                Spec
+              </button>
             </div>
           </div>
-          <button onclick="navigateTo('flashqueue')" class="mt-5 btn btn-quiet w-full text-xs">
-            Open FlashQueue Workspace
-          </button>
-        </div>
 
-        <!-- Card 6: CrewRoster -->
-        <div class="panel p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-start justify-between">
-              <h2 class="text-base font-medium text-ink">CrewRoster</h2>
-              <span class="chip chip-cool">Field operations</span>
+          <!-- Card 5: FlashQueue -->
+          <div class="apple-card">
+            <div>
+              <div class="flex items-start justify-between">
+                <span class="text-[11px] font-semibold text-[#707070] uppercase tracking-wider">05 / Traffic Concurrency</span>
+                <span class="chip chip-cool text-[11px]">Live Engine</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#1d1d1f] mt-2">FlashQueue</h3>
+              <p class="text-xs font-medium text-[#707070] mt-0.5">Virtual waiting room and flash queue simulator</p>
+              <p class="text-xs text-[#1d1d1f] mt-3 leading-relaxed">
+                Token-bucket traffic shaping buffering 50,000 users at the edge with bot heuristic quarantine and zero 504 errors.
+              </p>
+              <div class="mt-4 pt-3 border-t border-[#d6d6d6] text-xs text-[#707070] space-y-1">
+                <div>Target: <span class="text-[#1d1d1f] font-medium">BookMyShow, Zomato, Flipkart</span></div>
+                <div>Artifact: <span class="text-[#0066cc] font-medium">Queue Design and Capacity Model</span></div>
+              </div>
             </div>
-            <p class="text-xs text-muted mt-1">Field operations and SLA escalation dashboard</p>
-            <p class="text-xs text-ink-2 mt-3 leading-relaxed">
-              Grounded in NeoManpower Mumbai field operations managing up to 133 personnel across venues with zero SLA breaches.
-            </p>
-            <div class="mt-4 pt-3 border-t border-rule text-xs text-muted space-y-1">
-              <div>Target: <span class="text-ink">Urban Company, Shadowfax, Zepto</span></div>
-              <div>Artifact: <span class="text-accent">Operations Manual and PRD</span></div>
+            <div class="flex items-center gap-2 mt-5">
+              <button onclick="navigateTo('flashqueue')" class="btn btn-pricing flex-1 text-xs">
+                Open Workspace
+              </button>
+              <button onclick="openProductSpec('flashqueue')" class="btn btn-outline text-xs">
+                Spec
+              </button>
             </div>
           </div>
-          <button onclick="navigateTo('crewrostering')" class="mt-5 btn btn-quiet w-full text-xs">
-            Open CrewRoster Workspace
-          </button>
+
+          <!-- Card 6: CrewRoster -->
+          <div class="apple-card">
+            <div>
+              <div class="flex items-start justify-between">
+                <span class="text-[11px] font-semibold text-[#707070] uppercase tracking-wider">06 / Field Operations</span>
+                <span class="chip chip-cool text-[11px]">Live Engine</span>
+              </div>
+              <h3 class="text-xl font-semibold text-[#1d1d1f] mt-2">CrewRoster</h3>
+              <p class="text-xs font-medium text-[#707070] mt-0.5">Field operations and SLA escalation dashboard</p>
+              <p class="text-xs text-[#1d1d1f] mt-3 leading-relaxed">
+                Grounded in NeoManpower Mumbai field operations managing up to 133 personnel across venues with zero SLA breaches.
+              </p>
+              <div class="mt-4 pt-3 border-t border-[#d6d6d6] text-xs text-[#707070] space-y-1">
+                <div>Target: <span class="text-[#1d1d1f] font-medium">Urban Company, Shadowfax, Zepto</span></div>
+                <div>Artifact: <span class="text-[#0066cc] font-medium">Operations Manual and PRD</span></div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mt-5">
+              <button onclick="navigateTo('crewrostering')" class="btn btn-pricing flex-1 text-xs">
+                Open Workspace
+              </button>
+              <button onclick="openProductSpec('crewrostering')" class="btn btn-outline text-xs">
+                Spec
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -264,7 +327,10 @@
           <p class="text-xs text-muted mt-0.5">Automated Indian tax identification cross-validation and Levenshtein name matching</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openProductSpec('verishield')" class="btn btn-quiet text-xs">
+          <button onclick="navigateTo('hub')" class="btn btn-quiet text-xs">
+            &larr; Hub
+          </button>
+          <button onclick="openProductSpec('verishield')" class="btn btn-outline text-xs">
             View PM Spec
           </button>
         </div>
@@ -391,7 +457,10 @@
           <p class="text-xs text-muted mt-0.5">A/B experimentation testing smart recommendation quiz against traditional filters</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openProductSpec('automatch')" class="btn btn-quiet text-xs">
+          <button onclick="navigateTo('hub')" class="btn btn-quiet text-xs">
+            &larr; Hub
+          </button>
+          <button onclick="openProductSpec('automatch')" class="btn btn-outline text-xs">
             View PM Spec
           </button>
         </div>
@@ -507,7 +576,10 @@
           <p class="text-xs text-muted mt-0.5">Automated prompt regression testing, prompt injection defense, and schema validation</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openProductSpec('evalguard')" class="btn btn-quiet text-xs">
+          <button onclick="navigateTo('hub')" class="btn btn-quiet text-xs">
+            &larr; Hub
+          </button>
+          <button onclick="openProductSpec('evalguard')" class="btn btn-outline text-xs">
             View PM Spec
           </button>
         </div>
@@ -629,10 +701,13 @@
       <div class="panel p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 class="text-lg font-medium text-ink">PayRouter: Payment Router & Instant Refund</h1>
-          <p class="text-xs text-muted mt-0.5">Dynamic gateway waterfall routing, bank rail health degradation, and instant refund idempotency</p>
+          <p class="text-xs text-muted mt-0.5">Automated gateway waterfall routing, bank rail health degradation, and instant refund idempotency</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openProductSpec('payrouter')" class="btn btn-quiet text-xs">
+          <button onclick="navigateTo('hub')" class="btn btn-quiet text-xs">
+            &larr; Hub
+          </button>
+          <button onclick="openProductSpec('payrouter')" class="btn btn-outline text-xs">
             View PM Spec
           </button>
         </div>
@@ -741,7 +816,10 @@
           <p class="text-xs text-muted mt-0.5">High-concurrency token-bucket traffic shaping, bot heuristic quarantine, and origin protection</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openProductSpec('flashqueue')" class="btn btn-quiet text-xs">
+          <button onclick="navigateTo('hub')" class="btn btn-quiet text-xs">
+            &larr; Hub
+          </button>
+          <button onclick="openProductSpec('flashqueue')" class="btn btn-outline text-xs">
             View PM Spec
           </button>
         </div>
@@ -821,7 +899,10 @@
           <p class="text-xs text-muted mt-0.5">Grounded in NeoManpower Mumbai field operations managing up to 133 personnel across venues</p>
         </div>
         <div class="flex items-center gap-2">
-          <button onclick="openProductSpec('crewrostering')" class="btn btn-quiet text-xs">
+          <button onclick="navigateTo('hub')" class="btn btn-quiet text-xs">
+            &larr; Hub
+          </button>
+          <button onclick="openProductSpec('crewrostering')" class="btn btn-outline text-xs">
             View PM Spec
           </button>
         </div>
@@ -889,6 +970,23 @@
     </section>
 
   </main>
+
+  <!-- Apple Studio Mist Footer -->
+  <footer class="border-t border-[#e6e6e8] bg-[#f5f5f7] py-8 text-xs text-[#707070]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div>
+        <span>Designed &amp; Engineered by </span>
+        <strong class="text-[#1d1d1f]">Manav Mate</strong>
+        <span class="mx-2 text-[#d6d6d6]">&bull;</span>
+        <span>Associate Product Manager &amp; Builder</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="https://manavmate53-jpg.github.io/portfolio/" target="_blank" rel="noopener noreferrer" class="text-[#0066cc] hover:underline">Executive Portfolio</a>
+        <a href="https://github.com/manavmate53-jpg/pm-product-lab" target="_blank" rel="noopener noreferrer" class="text-[#0066cc] hover:underline">GitHub Repository</a>
+        <a href="https://www.linkedin.com/in/manav-mate-9448b1341/" target="_blank" rel="noopener noreferrer" class="text-[#0066cc] hover:underline">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
 
   <!-- Unified PM Specification Drawer / Modal -->
   <div id="spec-modal-overlay" class="modal-overlay" onclick="closeProductSpec()">

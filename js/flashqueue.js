@@ -156,7 +156,7 @@ function drainQueueStep() {
   renderFqTelemetry(`Released batch of ${batch.toLocaleString('en-IN')} users to origin checkout.`);
 
   if (fqState.userPosition <= 10) {
-    if (window.showToast) window.showToast('Front of queue reached. Checkout gate unlocked.', 'success');
+    if (window.showToast) window.showToast('Front of queue reached. Checkout gate access granted.', 'success');
   } else if (window.showToast) {
     window.showToast(`Admitted ${batch.toLocaleString('en-IN')} users to origin`, 'success');
   }
