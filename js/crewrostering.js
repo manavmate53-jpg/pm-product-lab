@@ -1,297 +1,255 @@
-// Product 6: Field Crew Rostering & On-Ground SLA Escalation Dashboard
-// Grounded directly in NeoManpower operations: managing up to 133 field personnel across 200+ Mumbai events with zero SLA breaches
+// Product 6: CrewRoster Field Operations & SLA Escalation Dashboard
+// Grounded directly in NeoManpower Mumbai field operations (up to 133 personnel across 200+ commercial events)
 
-let rosteringData = { venues: [], scenarios: [] };
-let selectedRosterScenario = null;
-let rosterZones = [];
-let standbyAvailable = 18;
-let slaTimerSeconds = 900; // 15 mins
-let slaTimerInterval = null;
-let currentRosterStatus = 'STABLE';
+let crScenarios = [];
+let crSelectedScenario = null;
+let crZones = [];
+let crStandbyAvailable = 18;
+let crTimerSeconds = 900;
+let crTimerInterval = null;
+let crStatus = 'OPTIMAL';
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadRosteringData();
+  initCrewRostering();
 });
 
-async function loadRosteringData() {
-  try {
-    const res = await fetch('data/rostering-scenarios.json');
-    rosteringData = await res.json();
-    if (rosteringData.scenarios && rosteringData.scenarios.length > 0) {
-      selectRosterScenario(rosteringData.scenarios[0].id);
-    }
-  } catch (err) {
-    console.error('Failed to load rostering data:', err);
+function initCrewRostering() {
+  if (window.LabData && window.LabData.rostering && window.LabData.rostering.scenarios) {
+    crScenarios = window.LabData.rostering.scenarios;
+  }
+  if (crScenarios.length > 0) {
+    selectRosterScenario(crScenarios[0].id);
   }
 }
 
 function selectRosterScenario(scenarioId) {
-  const scenario = rosteringData.scenarios.find(s => s.id === scenarioId);
-  if (!scenario) return;
-  selectedRosterScenario = scenario;
+  const sc = crScenarios.find(s => s.id === scenarioId);
+  if (!sc) return;
+  crSelectedScenario = sc;
 
-  // Highlight button
-  rosteringData.scenarios.forEach(s => {
+  crScenarios.forEach(s => {
     const btn = document.getElementById(`roster-preset-btn-${s.id}`);
     if (btn) {
-      if (s.id === scenarioId) {
-        btn.classList.add('border-cyan-500', 'bg-cyan-950/40', 'text-cyan-300');
-        btn.classList.remove('border-slate-800', 'bg-slate-900/60', 'text-slate-400');
-      } else {
-        btn.classList.remove('border-cyan-500', 'bg-cyan-950/40', 'text-cyan-300');
-        btn.classList.add('border-slate-800', 'bg-slate-900/60', 'text-slate-400');
-      }
+      if (s.id === scenarioId) btn.classList.add('active');
+      else btn.classList.remove('active');
     }
   });
 
-  // Deep copy zones for mutation
-  rosterZones = JSON.parse(JSON.stringify(scenario.zones));
-  standbyAvailable = scenario.standbyBufferAvailable;
-  currentRosterStatus = scenario.slaBreachRisk === 'High' ? 'CRITICAL' : 'OPTIMAL';
+  crZones = JSON.parse(JSON.stringify(sc.zones));
+  crStandbyAvailable = sc.standbyBufferAvailable;
+  crStatus = sc.slaBreachRisk === 'High' ? 'CRITICAL' : 'OPTIMAL';
 
-  // Set inputs
   const venueSelect = document.getElementById('roster-input-venue');
-  const bufferInput = document.getElementById('roster-input-buffer');
   const bufferVal = document.getElementById('roster-val-buffer');
 
-  if (venueSelect) venueSelect.value = scenario.venueId;
-  if (bufferInput) bufferInput.value = Math.round((standbyAvailable / scenario.totalScheduled) * 100);
-  if (bufferVal) bufferVal.textContent = `${standbyAvailable} Standby Crew`;
+  if (venueSelect) venueSelect.value = sc.venueId;
+  if (bufferVal) bufferVal.textContent = `${crStandbyAvailable} Standby Crew`;
 
-  // Reset SLA timer
-  startSlaTimer(scenario.id === 'jio_world_morning_rush' ? 660 : 900); // 11 mins left or 15 mins
+  startCrTimer(sc.id === 'jio_world_morning_rush' ? 660 : 900);
 
-  renderRosterHeatmap();
-  renderRosterSummary();
-  renderRosterDispatchLogs(scenario.recommendedAction);
+  renderCrHeatmap();
+  renderCrSummary();
+  renderCrLogs(sc.recommendedAction);
 }
 
-function startSlaTimer(seconds) {
-  if (slaTimerInterval) clearInterval(slaTimerInterval);
-  slaTimerSeconds = seconds;
-  updateTimerDisplay();
+function startCrTimer(seconds) {
+  if (crTimerInterval) clearInterval(crTimerInterval);
+  crTimerSeconds = seconds;
+  updateCrTimerDisplay();
 
-  slaTimerInterval = setInterval(() => {
-    if (slaTimerSeconds > 0) {
-      slaTimerSeconds--;
-      updateTimerDisplay();
+  crTimerInterval = setInterval(() => {
+    if (crTimerSeconds > 0) {
+      crTimerSeconds--;
+      updateCrTimerDisplay();
     } else {
-      clearInterval(slaTimerInterval);
+      clearInterval(crTimerInterval);
     }
   }, 1000);
 }
 
-function updateTimerDisplay() {
+function updateCrTimerDisplay() {
   const timerEl = document.getElementById('roster-timer-display');
   const statusEl = document.getElementById('roster-timer-status');
   if (!timerEl) return;
 
-  const mins = Math.floor(slaTimerSeconds / 60);
-  const secs = slaTimerSeconds % 60;
-  timerEl.textContent = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  const m = Math.floor(crTimerSeconds / 60);
+  const s = crTimerSeconds % 60;
+  timerEl.textContent = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
 
   if (statusEl) {
-    if (currentRosterStatus === 'RESOLVED' || currentRosterStatus === 'OPTIMAL') {
+    if (crStatus === 'OPTIMAL' || crStatus === 'RESOLVED') {
       statusEl.textContent = 'SLA Maintained: 0 Breaches';
-      statusEl.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800';
+      statusEl.className = 'chip chip-ok';
     } else {
-      statusEl.textContent = 'Urgent: Standby Dispatch Window Active';
-      statusEl.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 text-rose-400 border border-rose-800 animate-pulse';
+      statusEl.textContent = 'Standby Window Active';
+      statusEl.className = 'chip chip-bad';
     }
   }
 }
 
-function renderRosterHeatmap() {
+function renderCrHeatmap() {
   const container = document.getElementById('roster-zones-grid');
   if (!container) return;
 
-  container.innerHTML = rosterZones.map((z, idx) => {
+  container.innerHTML = crZones.map((z, idx) => {
     const isCritical = z.status === 'critical';
     const isWarning = z.status === 'warning';
-    const fillPct = Math.round((z.checkedIn / z.required) * 100);
-    const badgeColor = isCritical ? 'text-rose-400 bg-rose-950/80 border-rose-800' :
-                       isWarning ? 'text-amber-400 bg-amber-950/80 border-amber-800' :
-                       'text-emerald-400 bg-emerald-950/80 border-emerald-800';
+    const chipClass = isCritical ? 'chip-bad' : (isWarning ? 'chip-accent' : 'chip-ok');
+    const deficit = Math.max(0, z.required - z.checkedIn);
+    const fillPct = Math.min(100, Math.round((z.checkedIn / z.required) * 100));
 
     return `
-      <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/70 flex flex-col justify-between">
+      <div class="panel p-4 flex flex-col justify-between">
         <div>
-          <div class="flex items-start justify-between mb-2">
-            <span class="text-xs font-bold text-white">${z.name}</span>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded border ${badgeColor}">${z.status.toUpperCase()}</span>
+          <div class="flex items-start justify-between">
+            <span class="text-xs font-medium text-ink">${escapeHtml(z.name)}</span>
+            <span class="chip ${chipClass}">${z.status}</span>
           </div>
-          <div class="flex items-baseline justify-between text-xs text-slate-300 font-mono mt-3">
-            <span>Staff On-Ground:</span>
-            <span class="text-sm font-bold text-white">${z.checkedIn} / ${z.required}</span>
+          <div class="mt-3 flex items-baseline justify-between text-xs font-mono">
+            <span class="text-muted">Staffing:</span>
+            <span class="text-ink font-medium">${z.checkedIn} / ${z.required} (${fillPct}%)</span>
           </div>
-          <div class="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden">
-            <div class="h-full ${isCritical ? 'bg-rose-500' : isWarning ? 'bg-amber-500' : 'bg-emerald-500'} transition-all" style="width: ${Math.min(100, fillPct)}%"></div>
+          <div class="w-full bg-paper-3 h-1.5 rounded mt-2 overflow-hidden border border-rule">
+            <div class="h-full bg-accent" style="width: ${fillPct}%"></div>
           </div>
         </div>
-        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-          <span>Deficit: <strong class="${z.required - z.checkedIn > 0 ? 'text-rose-400' : 'text-slate-400'}">${Math.max(0, z.required - z.checkedIn)}</strong></span>
-          <button onclick="quickDispatchToZone(${idx})" class="text-[11px] px-2 py-1 rounded bg-slate-800 hover:bg-cyan-600 text-slate-200 hover:text-white transition-colors border border-slate-700">
-            Dispatch +2
-          </button>
+        <div class="mt-4 pt-3 border-t border-rule flex items-center justify-between text-xs font-mono">
+          <span class="text-muted">Deficit: <strong class="${deficit > 0 ? 'text-bad' : 'text-muted'}">${deficit}</strong></span>
+          <button onclick="quickDispatchToZone(${idx})" class="btn btn-quiet text-xs">Dispatch +2</button>
         </div>
       </div>
     `;
   }).join('');
 }
 
-function renderRosterSummary() {
-  const totalReq = rosterZones.reduce((sum, z) => sum + z.required, 0);
-  const totalChecked = rosterZones.reduce((sum, z) => sum + z.checkedIn, 0);
-  const deficit = Math.max(0, totalReq - totalChecked);
+function quickDispatchToZone(idx) {
+  if (idx < 0 || idx >= crZones.length) return;
+  if (crStandbyAvailable < 2) {
+    if (window.showToast) window.showToast("Standby reserve buffer exhausted", "error");
+    return;
+  }
+
+  crZones[idx].checkedIn += 2;
+  crStandbyAvailable -= 2;
+  if (crZones[idx].checkedIn >= crZones[idx].required) {
+    crZones[idx].status = 'optimal';
+  }
+
+  renderCrHeatmap();
+  renderCrSummary();
+  renderCrLogs(`Manual supervisor dispatch: +2 staff transferred to ${crZones[idx].name}.`);
+
+  if (window.showToast) window.showToast(`Transferred 2 crew members to ${crZones[idx].name}`, "info");
+}
+
+function renderCrSummary() {
+  const req = crZones.reduce((sum, z) => sum + z.required, 0);
+  const checked = crZones.reduce((sum, z) => sum + z.checkedIn, 0);
 
   const reqEl = document.getElementById('roster-metric-required');
   const checkedEl = document.getElementById('roster-metric-checked');
   const standbyEl = document.getElementById('roster-metric-standby');
   const accuracyEl = document.getElementById('roster-metric-accuracy');
 
-  if (reqEl) reqEl.textContent = totalReq;
-  if (checkedEl) checkedEl.textContent = totalChecked;
-  if (standbyEl) standbyEl.textContent = standbyAvailable;
+  if (reqEl) reqEl.textContent = req;
+  if (checkedEl) checkedEl.textContent = checked;
+  if (standbyEl) standbyEl.textContent = crStandbyAvailable;
   if (accuracyEl) accuracyEl.textContent = '100.0%';
 }
 
 function simulateNoShowsTrigger() {
-  if (rosterZones.length > 0) {
-    rosterZones[0].checkedIn = Math.max(16, rosterZones[0].checkedIn - 8);
-    rosterZones[0].status = 'critical';
+  if (crZones.length > 0) {
+    crZones[0].checkedIn = Math.max(16, crZones[0].checkedIn - 8);
+    crZones[0].status = 'critical';
   }
-  if (rosterZones.length > 1) {
-    rosterZones[1].checkedIn = Math.max(28, rosterZones[1].checkedIn - 4);
-    rosterZones[1].status = 'warning';
+  if (crZones.length > 1) {
+    crZones[1].checkedIn = Math.max(28, crZones[1].checkedIn - 4);
+    crZones[1].status = 'warning';
   }
-  if (rosterZones.length > 3) {
-    rosterZones[3].checkedIn = Math.max(20, rosterZones[3].checkedIn - 2);
-    rosterZones[3].status = 'warning';
+  if (crZones.length > 3) {
+    crZones[3].checkedIn = Math.max(20, crZones[3].checkedIn - 2);
+    crZones[3].status = 'warning';
   }
 
-  currentRosterStatus = 'CRITICAL';
-  startSlaTimer(900); // 15 mins SLA countdown
+  crStatus = 'CRITICAL';
+  startCrTimer(900);
 
-  renderRosterHeatmap();
-  renderRosterSummary();
-  renderRosterDispatchLogs('INCIDENT TRIGGERED: 14 morning no-shows flagged at check-in turnstiles. SLA clock started.');
+  renderCrHeatmap();
+  renderCrSummary();
+  renderCrLogs('INCIDENT: 14 morning check-in no-shows flagged at venue entry. 15-minute SLA clock active.');
 
   if (window.showToast) {
-    window.showToast('14 unconfirmed slots detected at venue gate. 15-minute SLA timer active.', 'error');
+    window.showToast('14 unconfirmed slots at venue turnstiles. 15-minute SLA timer active.', 'error');
   }
 }
 
 function deployStandbyReserveCrew() {
-  let neededTotal = 0;
-  rosterZones.forEach(z => {
+  let needed = 0;
+  crZones.forEach(z => {
     const diff = z.required - z.checkedIn;
-    if (diff > 0) neededTotal += diff;
+    if (diff > 0) needed += diff;
   });
 
-  if (neededTotal === 0) {
+  if (needed === 0) {
     if (window.showToast) window.showToast('All zones are currently at 100% required staffing', 'info');
     return;
   }
 
-  const deployCount = Math.min(standbyAvailable, neededTotal);
-  let deployedSoFar = 0;
+  const deployCount = Math.min(crStandbyAvailable, needed);
+  let deployed = 0;
 
-  rosterZones.forEach(z => {
+  crZones.forEach(z => {
     const diff = z.required - z.checkedIn;
-    if (diff > 0 && deployedSoFar < deployCount) {
-      const take = Math.min(diff, deployCount - deployedSoFar);
+    if (diff > 0 && deployed < deployCount) {
+      const take = Math.min(diff, deployCount - deployed);
       z.checkedIn += take;
-      deployedSoFar += take;
+      deployed += take;
       if (z.checkedIn >= z.required) z.status = 'optimal';
     }
   });
 
-  standbyAvailable = Math.max(0, standbyAvailable - deployedSoFar);
-  currentRosterStatus = 'RESOLVED';
-  startSlaTimer(0);
+  crStandbyAvailable = Math.max(0, crStandbyAvailable - deployed);
+  crStatus = 'RESOLVED';
+  startCrTimer(0);
 
-  renderRosterHeatmap();
-  renderRosterSummary();
-  renderRosterDispatchLogs(`DISPATCH COMPLETED: Redeployed ${deployedSoFar} reserve personnel to venue posts in 11 minutes. Zero SLA breaches recorded.`);
+  renderCrHeatmap();
+  renderCrSummary();
+  renderCrLogs(`DISPATCH: Redeployed ${deployed} reserve crew members. All zones restored, zero SLA breaches.`);
 
   if (window.showToast) {
-    window.showToast(`Deployed ${deployedSoFar} standby personnel. Venue postings at 100% capacity.`, 'success');
+    window.showToast(`Deployed ${deployed} reserve crew members. Full staffing restored.`, 'success');
   }
 }
 
-function quickDispatchToZone(zoneIndex) {
-  if (standbyAvailable < 2) {
-    if (window.showToast) window.showToast('Standby reserve pool depleted', 'error');
-    return;
-  }
-  const zone = rosterZones[zoneIndex];
-  if (!zone) return;
-
-  zone.checkedIn = Math.min(zone.required, zone.checkedIn + 2);
-  standbyAvailable -= 2;
-  if (zone.checkedIn >= zone.required) zone.status = 'optimal';
-
-  renderRosterHeatmap();
-  renderRosterSummary();
-  renderRosterDispatchLogs(`Quick dispatch: Assigned +2 standby personnel to ${zone.name}.`);
-
+function runPayoutReconciliationAudit() {
+  renderCrLogs('FINANCIAL RECONCILIATION: Audited 100% of QR check-in timestamps. 0 variance detected against client contract.');
   if (window.showToast) {
-    window.showToast(`+2 crew dispatched to ${zone.name}`, 'info');
+    window.showToast('QR shift reconciliation audit complete: 100% accuracy, ₹0 discrepancy', 'success');
   }
 }
 
-function runQrPayoutReconciliation() {
-  const totalChecked = rosterZones.reduce((sum, z) => sum + z.checkedIn, 0);
-  const baseRateInr = 1200; // Daily shift rate
-  const totalBasePayout = (totalChecked * baseRateInr).toLocaleString('en-IN');
-
-  const reconciliationModal = document.getElementById('roster-reconciliation-log');
-  if (reconciliationModal) {
-    const payload = {
-      audit_event: "shift.payout_reconciled",
-      timestamp: new Date().toISOString(),
-      venue: selectedRosterScenario ? selectedRosterScenario.venueId : "jio_world",
-      verified_checkins: totalChecked,
-      scheduled_personnel: selectedRosterScenario ? selectedRosterScenario.totalScheduled : 120,
-      shift_hours: 9.0,
-      overtime_exceptions_cleared: 3,
-      sla_breaches: 0,
-      sla_penalty_inr: 0,
-      total_disbursement_inr: `₹${totalBasePayout}`,
-      reconciliation_status: "100%_AUDITED_ZERO_VARIANCE",
-      signoff_by: "Manav Mate (Founder & Operations Lead)"
-    };
-    reconciliationModal.textContent = JSON.stringify(payload, null, 2);
-  }
-
-  if (window.showToast) {
-    window.showToast('100% QR hours reconciled. Zero payout variance across all personnel.', 'success');
-  }
-}
-
-function renderRosterDispatchLogs(customMsg = '') {
-  const container = document.getElementById('roster-dispatch-log');
+function renderCrLogs(note = '') {
+  const container = document.getElementById('roster-dispatch-logs');
   if (!container) return;
 
   const now = new Date().toLocaleTimeString();
   const logs = [
-    { time: now, level: 'DISPATCH', msg: customMsg || 'Roster status verified.' },
-    { time: now, level: 'AUDIT', msg: `Attendance geo-fence verified: QR check-in scanned at gate turnstiles.` },
-    { time: now, level: 'SLA', msg: `Client contractual terms: 15-minute emergency fill threshold active. Current status: ZERO BREACHES.` }
+    { time: now, step: 'DISPATCH', msg: note || 'Field operations nominal.' },
+    { time: now, step: 'QR_AUDIT', msg: 'Automated turnstile scan sync: 100% check-ins verified against Aadhaar / NeoManpower roster.' },
+    { time: now, step: 'SLA_GUARD', msg: 'Zero SLA penalties accrued across 200+ Mumbai events.' }
   ];
 
   container.innerHTML = logs.map(l => `
-    <div class="flex items-start gap-2.5 py-1.5 border-b border-slate-800/60 font-mono text-xs">
-      <span class="text-slate-500 w-16">${l.time}</span>
-      <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${l.level === 'DISPATCH' ? 'bg-cyan-950 text-cyan-300 border border-cyan-800' : 'bg-slate-800 text-slate-300 border border-slate-700'}">${l.level}</span>
-      <span class="text-slate-300 flex-1">${l.msg}</span>
+    <div class="flex items-start gap-2.5 py-1.5 border-b border-rule font-mono text-xs">
+      <span class="text-muted w-16">${l.time}</span>
+      <span class="chip chip-cool">${l.step}</span>
+      <span class="text-ink-2 flex-1">${escapeHtml(l.msg)}</span>
     </div>
   `).join('');
 }
 
-// Window exports
 window.selectRosterScenario = selectRosterScenario;
+window.quickDispatchToZone = quickDispatchToZone;
 window.simulateNoShowsTrigger = simulateNoShowsTrigger;
 window.deployStandbyReserveCrew = deployStandbyReserveCrew;
-window.quickDispatchToZone = quickDispatchToZone;
-window.runQrPayoutReconciliation = runQrPayoutReconciliation;
+window.runPayoutReconciliationAudit = runPayoutReconciliationAudit;
